@@ -16,8 +16,8 @@ Addon officiel Home Assistant pour exécuter **MynetworK dashboard** directement
 
 ## Installation
 
-1. Ouvre Home Assistant
-2. Va dans **Paramètres → Add-ons → Add-on Store**
-3. Clique sur ⋮ → **Repositories**
-4. Ajoute :
+1. Ouvrir Home Assistant
+2. Dans **Paramètres → Add-ons → Add-on Store**
+3. Cliquez sur ⋮ → **Repositories**
+4. Ajoutez : https://github.com/Erreur32/HA_mynetwork
 
