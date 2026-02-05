@@ -1,9 +1,9 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64-base:latest
 FROM ${BUILD_FROM}
 
-# Node.js 22 + outils réseau
+# Node + outils réseau (du docker-compose)
 RUN apk add --no-cache \
-    nodejs=22.11.0-r0 \
+    nodejs>=18 \
     npm \
     curl \
     iputils-ping \
@@ -13,14 +13,13 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-# Copie TOUS fichiers MynetworK (commit vos server/, dist/, package.json)
+# Copie app MynetworK
 COPY package*.json ./
-COPY server/ ./server/
-COPY dist/ ./dist/
+COPY server ./server
+COPY dist ./dist
 COPY tsconfig.json ./
 
-# Installe dépendances (better-sqlite3 compile)
-RUN npm ci --production --no-optional \
+RUN npm ci --production \
     && npm cache clean --force
 
 EXPOSE 3000

@@ -1,39 +1,30 @@
 {
   "name": "MynetworK",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "slug": "mynetwork",
-  "description": "Addon MynetworK pour Home Assistant",
-
+  "description": "Dashboard réseau + Freebox (ingress)",
   "startup": "services",
   "boot": "auto",
   "init": false,
-
-  "arch": ["amd64", "aarch64", "armv7"],
-
+  "arch": ["amd64"],
   "ingress": true,
   "ingress_port": 3000,
-
-  "panel_icon": "mdi:lan",
+  "panel_icon": "mdi:lan-connect",
   "panel_title": "MynetworK",
-
   "host_network": true,
-  "privileged": [
-    "NET_ADMIN",
-    "NET_RAW"
-  ],
-
+  "privileged": ["NET_ADMIN", "NET_RAW"],
   "map": [
-    "addon_config:rw",
-    "docker_api:ro"
+    "config:rw"
   ],
-
   "options": {
     "jwt_secret": "",
     "freebox_host": "mafreebox.freebox.fr"
   },
-
   "schema": {
     "jwt_secret": "str",
     "freebox_host": "str"
+  },
+  "ports": {
+    "3000/tcp": 3000
   }
 }
