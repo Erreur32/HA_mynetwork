@@ -69,7 +69,6 @@ HA > Add-on > Logs MynetworK
 [GitHub Issues](https://github.com/Erreur32/HA_mynetwork/issues)
 
 ---
-MynetworK v0.5.5 - 2026
-
+MynetworK v0.5.6 - 2026
 
 
