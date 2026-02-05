@@ -1,10 +1,15 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64-base:latest
-FROM ${BUILD_FROM}
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
-# Node + outils réseau (du docker-compose)
+# Install requirements for app
 RUN apk add --no-cache \
     nodejs>=18 \
     npm \
+    python3 \
+    make \
+    g++ \
+    pkgconfig \
+    sqlite-dev \
     curl \
     iputils-ping \
     iproute2 \
@@ -13,13 +18,16 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-# Copie app MynetworK
 COPY package*.json ./
+RUN npm ci --omit=dev \
+    && npm cache clean --force
+
 COPY server ./server
 COPY dist ./dist
 COPY tsconfig.json ./
 
-RUN npm ci --production \
-    && npm cache clean --force
+# Copy data for app
+COPY run.sh /
+RUN chmod a+x /run.sh
 
-EXPOSE 3000
+CMD [ "/run.sh" ]

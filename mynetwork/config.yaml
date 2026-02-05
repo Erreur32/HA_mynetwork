@@ -1,0 +1,29 @@
+name: "MynetworK"
+version: "0.5.6"
+slug: "mynetwork"
+description: "Dashboard réseau + Freebox (ingress)"
+url: "https://github.com/Erreur32/HA_mynetwork"
+startup: services
+boot: auto
+init: false
+arch:
+  - amd64
+ingress: true
+ingress_port: 3000
+panel_icon: "mdi:lan-connect"
+panel_title: "MynetworK"
+host_network: true
+privileged:
+  - NET_ADMIN
+  - NET_RAW
+map:
+  - type: homeassistant_config
+    read_only: false
+ports:
+  3000/tcp: 3000
+options:
+  jwt_secret: ""
+  freebox_host: "mafreebox.freebox.fr"
+schema:
+  jwt_secret: str
+  freebox_host: str

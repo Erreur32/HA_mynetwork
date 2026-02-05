@@ -1,5 +1,9 @@
 # 📋 Changelog MynetworK Add-on
 
+## [v0.5.6] - 2026-02-05
+### 🔧 Changed
+- Version bump to trigger Home Assistant add-on update.
+
 ## [v0.5.5] - 2026-02-05
 ### ✅ Fixed
 - `s6-overlay-suexec: fatal: can only run as pid 1` → `exec npx tsx server/index.ts`

@@ -117,6 +117,28 @@ const app = express();
 // This allows Express to use X-Forwarded-For and X-Real-IP headers
 app.set('trust proxy', true);
 
+// Ingress security: only allow Supervisor ingress IP when ingress header is present.
+app.use((req, res, next) => {
+  const ingressPath = req.header('X-Ingress-Path');
+  if (!ingressPath) {
+    return next();
+  }
+
+  const allowedIngressIp = '172.30.32.2';
+  const requestIp = req.ip || '';
+  const forwardedFor = req.header('X-Forwarded-For') || '';
+  const forwardedIp = forwardedFor.split(',')[0]?.trim() || '';
+  const normalizedRequestIp = requestIp.replace('::ffff:', '');
+  const normalizedForwardedIp = forwardedIp.replace('::ffff:', '');
+
+  if (normalizedRequestIp === allowedIngressIp || normalizedForwardedIp === allowedIngressIp) {
+    return next();
+  }
+
+  logger.warn('Security', `Blocked ingress request from IP ${requestIp || forwardedIp}`);
+  return res.status(403).json({ error: 'Ingress access denied' });
+});
+
 // Middleware - CORS Configuration
 // Get CORS config from database, fallback to defaults
 function getCorsConfig() {

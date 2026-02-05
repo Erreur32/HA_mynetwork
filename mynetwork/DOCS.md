@@ -10,10 +10,12 @@
 
 Save → Restart après changements.
 
-### Permissions (config.json)
+### Permissions (config.yaml)
 - host_network: true
 - privileged: ["NET_ADMIN", "NET_RAW"]
-- map: ["addon_config:rw", "docker_api:ro"]
+- map:
+  - type: homeassistant_config
+    read_only: false
 
 ## 🛠️ Installation
 
@@ -51,7 +53,7 @@ GET http://IP:3000/api/health
 
 | Erreur | Solution |
 |--------|----------|
-| s6-overlay-suexec PID 1 | config.json: "init": false<br>Protection mode: OFF |
+| s6-overlay-suexec PID 1 | config.yaml: "init": false<br>Protection mode: OFF |
 | tsx not found | Rebuild Dockerfile |
 | Port 3000 occupé | netstat -tlnp \| grep 3000 |
 
@@ -69,7 +71,5 @@ HA > Add-on > Logs MynetworK
 [GitHub Issues](https://github.com/Erreur32/HA_mynetwork/issues)
 
 ---
-MynetworK v0.5.5 - 2026
-
-
+MynetworK v0.5.6 - 2026
 
