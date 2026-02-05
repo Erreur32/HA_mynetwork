@@ -1,6 +1,2 @@
-name: "MynetworK Addon Repo"
-url: "https://github.com/Erreur32/MynetworK"
-maintainer: "Erreur32"
-name: MynetworK
-url: 'https://github.com/Erreur32/HA_mynetwork'
-maintainer: 'Erreur32'
+name: "MynetworK"
+url: "https://github.com/Erreur32/HA_mynetwork"
