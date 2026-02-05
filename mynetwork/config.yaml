@@ -1,5 +1,5 @@
 name: "MynetworK"
-version: "0.5.6"
+version: "0.5.7"
 slug: "mynetwork"
 description: "Dashboard réseau + Freebox (ingress)"
 url: "https://github.com/Erreur32/HA_mynetwork"

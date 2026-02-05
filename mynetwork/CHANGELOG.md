@@ -1,6 +1,6 @@
 # 📋 Changelog MynetworK Add-on
 
-## [v0.5.6] - 2026-02-05
+## [v0.5.7] - 2026-02-05
 ### 🔧 Changed
 - Version bump to trigger Home Assistant add-on update.
 
