@@ -4,6 +4,19 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.9]
+
+### Added
+
+- **DOCS.md**: Official docs reference (Home Assistant Developer Docs, Developing an app) and explicit links to [App security → Protection](https://developers.home-assistant.io/docs/apps/security#protection) and [API role](https://developers.home-assistant.io/docs/apps/security#api-role) for protected mode integration.
+
+### Changed
+
+- **DOCS.md**: All documentation links updated from `/docs/add-ons/` to `/docs/apps/` (configuration, security). Security section expanded with official quotes and step-by-step for enabling the Protected mode toggle.
+- **config.yaml**: Comments for `hassio_api` / `hassio_role` updated to cite [App security](https://developers.home-assistant.io/docs/apps/security) and clarify that only `hassio_role: admin` allows the protection mode toggle for this app.
+
+---
+
 ## [0.0.8]
 
 ### Added

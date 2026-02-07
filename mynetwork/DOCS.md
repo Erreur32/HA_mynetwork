@@ -1,12 +1,14 @@
 # MynetworK (Home Assistant App)
 
+**Official docs reference:** [Home Assistant Developer Docs](https://developers.home-assistant.io/) · [Developing an app](https://developers.home-assistant.io/docs/apps) (tutorial, configuration, security, presentation).
+
 **Ingress only** (sidebar) — no exposed port, no Home Assistant sensors.
 
-**Compatibility:** Home Assistant 2025.x / 2026.x (Supervisor, Settings → Apps). Config follows [App configuration](https://developers.home-assistant.io/docs/add-ons/configuration) and [App security](https://developers.home-assistant.io/docs/add-ons/security).
+**Compatibility:** Home Assistant 2025.x / 2026.x (Supervisor, Settings → Apps). Config follows [App configuration](https://developers.home-assistant.io/docs/apps/configuration) and [App security](https://developers.home-assistant.io/docs/apps/security).
 
 ## Prerequisites
 
-- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.0.8` (amd64, aarch64, armv7).
+- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.0.9` (amd64, aarch64, armv7).
 - Network capabilities: **NET_RAW** and **NET_ADMIN** are required for network scanning.
 
 ## Installation
@@ -58,9 +60,12 @@
 - Do not expose the UI outside Ingress without proper authentication.
 - **AppArmor**: a custom [apparmor.txt](https://developers.home-assistant.io/docs/apps/presentation#apparmor) profile is included (same folder as `config.yaml`). It restricts the add-on to the minimum required paths (e.g. `/data`, `/app/server`, wrapper script) and contributes to the app’s security rating after installation.
 
-- **Mode protégé (Protected mode) — HA 2025/2026**  
-  The app declares `hassio_api: true` and `hassio_role: admin` in `config.yaml` so the Supervisor can show the **"Protected mode"** toggle. In Home Assistant 2025/2026: go to **Settings** → **Apps** → **MynetworK**, then open the **Information** tab or the **Configuration** tab and find the **Security** section. Turn **Protected mode** **OFF** so the app can use `NET_RAW`/`NET_ADMIN` (required for network scanning). With protection ON, the app may not start.  
-  **If the toggle does not appear:** update the MynetworK app to the latest version (so the Supervisor re-reads the manifest with `hassio_role: admin`), then look again under **Information** → **Security** and **Configuration** → **Security**. Reference: [App security](https://developers.home-assistant.io/docs/add-ons/security).
+- **Mode protégé (Protected mode) — obligatoire pour MynetworK**  
+  Selon la doc officielle [App security → Protection](https://developers.home-assistant.io/docs/apps/security#protection) : *« By default, all apps run in protection-enabled mode. This mode prevents the app from getting any rights on the system. If an app requires more rights, you can disable this protection via the API app options for that app. »*  
+  **Sans désactiver le mode protégé, l’app ne peut pas utiliser NET_RAW/NET_ADMIN** : le Supervisor refuse ces droits tant que la protection est activée. Il faut donc **désactiver** le mode protégé pour que MynetworK puisse démarrer et faire le scan réseau.  
+  **Intégration dans l’app** (conforme [App security → API role](https://developers.home-assistant.io/docs/apps/security#api-role)) : l’app déclare `hassio_api: true` et `hassio_role: admin`. Le rôle **admin** est le seul qui permet de désactiver/activer le mode protégé pour cette app (*« That is the only one they can disable/enable the App protection mode »*). Aucune autre clé dans `config.yaml` n’est nécessaire ; l’état protégé on/off est géré par le Supervisor (options de l’app).  
+  **Où désactiver** : **Paramètres** → **Apps** → **MynetworK** → onglet **Information** ou **Configuration** → section **Sécurité** → toggle **Protected mode** sur **OFF**.  
+  **Si le toggle n’apparaît pas** : (1) Mettez à jour l’app (dernière version) pour que le Supervisor relise le manifest. (2) Sinon, via l’API Supervisor : `POST http://supervisor/addons/<slug>/security` avec le body `{"protected": false}` (voir [API Supervisor](https://developers.home-assistant.io/docs/api/supervisor) pour le slug et le token).
 
 ## Troubleshooting
 
@@ -69,7 +74,7 @@
 - **Incomplete network scan**: enable `host_network: true` in `config.yaml` (requires a modified add-on build), then test again. Warning: this gives the add-on access to the host network.
 - **Watchdog**: the add-on exposes `/api/health` on internal port 3000; the Supervisor uses it to monitor the app.
 - **Persistence**: if in doubt, check that the volume is mounted at `/data` and that files (e.g. `dashboard.db`) exist after a restart.
-- **AppArmor**: if the app fails to start and Supervisor logs point to AppArmor, you can set `apparmor: false` in `config.yaml` (custom build) to use the default profile (this lowers the app security rating by 1; see [App configuration](https://developers.home-assistant.io/docs/add-ons/configuration)).
+- **AppArmor**: if the app fails to start and Supervisor logs point to AppArmor, you can set `apparmor: false` in `config.yaml` (custom build) to use the default profile (this lowers the app security rating by 1; see [App configuration](https://developers.home-assistant.io/docs/apps/configuration)).
 
 ## Post-install checks
 

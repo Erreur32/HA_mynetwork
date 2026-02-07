@@ -4,7 +4,7 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.0.8-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![Add-on version](https://img.shields.io/badge/version-0.0.9-blue)](https://github.com/Erreur32/HA_mynetwork)
 [![MynetworK upstream](https://img.shields.io/badge/MynetworK-official-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)

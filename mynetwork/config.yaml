@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.0.8"
+version: "0.0.9"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
@@ -8,7 +8,10 @@ arch:
   - armv7
   # - armhf  # optional if linux/arm/v6 image is published
 
-# Protected mode toggle in UI (admin = only role that can disable protection). User must disable it for NET_RAW/NET_ADMIN.
+# App security (https://developers.home-assistant.io/docs/apps/security): Protection + API role.
+# By default apps run in protection-enabled mode; to use NET_RAW/NET_ADMIN the user must disable
+# protection via the app's Security section in the UI (or via Supervisor API). Only hassio_role:
+# admin allows that app to have its protection mode toggled (required for this add-on).
 hassio_api: true
 hassio_role: admin
 
