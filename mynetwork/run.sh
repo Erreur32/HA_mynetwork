@@ -87,6 +87,19 @@ if [ -w /data ] && command -v chown >/dev/null 2>&1; then
   chmod -R 755 /data 2>/dev/null || true
 fi
 
+# Fix Ingress: upstream vite build uses absolute paths (/assets/...) in index.html.
+# Ingress reverse proxy prefixes all URLs with /api/hassio_ingress/<token>/, so absolute
+# paths break (browser loads /assets/... instead of /api/hassio_ingress/.../assets/...).
+# Patch: replace "/assets/" with "./assets/" so paths are relative to the current URL.
+INDEX_HTML="/app/dist/index.html"
+if [ -f "$INDEX_HTML" ]; then
+  if grep -q '"/assets/' "$INDEX_HTML" 2>/dev/null || grep -q "'/assets/" "$INDEX_HTML" 2>/dev/null; then
+    log "Patching index.html: absolute /assets/ → relative ./assets/ (Ingress fix)"
+    sed -i 's|"/assets/|"./assets/|g' "$INDEX_HTML"
+    sed -i "s|'/assets/|'./assets/|g" "$INDEX_HTML"
+  fi
+fi
+
 # Start app: use upstream entrypoint if present, else run tsx directly (with su-exec if available)
 TSX_CMD="/app/node_modules/.bin/tsx"
 SERVER_FILE="/app/server/index.ts"

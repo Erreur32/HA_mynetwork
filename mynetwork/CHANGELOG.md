@@ -4,6 +4,55 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.11]
+
+### Fixed
+
+- **Page blanche Ingress** : le build Vite upstream utilise des chemins absolus (`/assets/...`) dans `index.html`. Le Supervisor Ingress préfixe les URLs avec `/api/hassio_ingress/<token>/`, donc les chemins absolus cassent (404). **run.sh** patche maintenant `index.html` au démarrage : `/assets/` → `./assets/` (chemins relatifs).
+
+### Changed
+
+- **run.sh** : ajout du patch `sed` sur `/app/dist/index.html` avant le lancement de l'app.
+
+---
+
+## [0.1.10]
+
+### Changed
+
+- **config.yaml** : suppression de l'option `network.server_port` (port fixe 3000, géré par le Supervisor via `ingress_port`). L'utilisateur n'a plus de section "Réseau" dans la configuration.
+- **run.sh** : port 3000 en dur, ne lit plus `network.server_port` depuis les options.
+- **translations en/fr** : suppression de la section Réseau (network).
+- **DOCS.md / DOCS_FR.md** : version anglaise par défaut + version française séparée. Ajout icône/logo, suppression section port.
+
+---
+
+## [0.1.9]
+
+### Added
+
+- **Port direct 7505** : `ports: 3000/tcp: 7505` ajouté dans `config.yaml` pour accéder à l'app depuis `http://homeassistant:7505` (contournement page blanche Ingress en attendant le fix upstream).
+
+### Changed
+
+- **config.yaml** : Ingress + port exposé en parallèle.
+- **DOCS.md / DOCS_FR.md** : accès via Ingress (sidebar) et via port direct.
+
+---
+
+## [0.1.8]
+
+### Added
+
+- **DOCS.md** : réécriture complète — présentation de l'app (Freebox, UniFi, Scan réseau, fonctionnalités), tableau des options, premier lancement, désactivation mode protégé (UI + API Long-Lived Token), troubleshooting.
+- **DOCS_FR.md** : version française de la documentation.
+
+### Changed
+
+- **DOCS.md** : suppression de la section token Supervisor (inutile pour l'utilisateur). Ajout de la méthode Long-Lived Access Token + proxy API HA Core pour désactiver le mode protégé.
+
+---
+
 ## [0.1.7]
 
 ### Fixed
