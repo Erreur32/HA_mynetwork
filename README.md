@@ -9,6 +9,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Ready-1f2937?style=for-the-badge&logo=docker&logoColor=38bdf8)
 [![Docker Image](https://img.shields.io/badge/GHCR-ghcr.io%2Ferreur32%2Fmynetwork-1f2937?style=for-the-badge&logo=docker&logoColor=38bdf8)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
 [![Release][release-shield]][release]
+[![MynetworK][mynetwork-shield]][mynetwork-upstream]
 [![Home Assistant][ha-shield]][ha]
 [![License][license-shield]][license]
 [![Issues][issues-shield]][issue]
@@ -40,7 +41,7 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.1.13` 
+**Current version:** `0.1.15` | **Based on MynetworK:** `v0.7.3`
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan).
 
@@ -67,18 +68,19 @@ This add-on runs MynetworK inside Home Assistant with **Ingress** and  exposed p
 
 ```
 HA_mynetwork/
-├── repository.yaml          # Repository metadata
-├── bump-version.sh         # Script to bump version before push
-├── update-addon-icon.sh    # Script to refresh icon from MynetworK logo (SVG → PNG)
-├── README.md               # This file
-└── mynetwork/              # MynetworK add-on
+├── repository.yaml              # Repository metadata
+├── README.md                    # This file
+├── scripts/
+│   └── update-version.sh       # Bump version across the repo before push
+└── mynetwork/                   # MynetworK add-on
     ├── config.yaml
     ├── Dockerfile
     ├── run.sh
     ├── apparmor.txt
     ├── build.yaml
-    ├── CHANGELOG.md        # Changelog (visible in HA app)
+    ├── CHANGELOG.md             # Changelog (visible in HA app)
     ├── DOCS.md
+    ├── DOCS_FR.md
     ├── README.md
     ├── icon.png
     └── translations/
@@ -169,10 +171,10 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.1.13-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.13
+[release-shield]: https://img.shields.io/badge/version-v0.1.15-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.15
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
-[mynetwork-shield]: https://img.shields.io/badge/based%20on-MynetworK-orange.svg
+[mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.3-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
 [ha-shield]: https://img.shields.io/badge/Home%20Assistant-App%20(Supervisor)-41BDF5.svg
 [ha]: https://www.home-assistant.io/

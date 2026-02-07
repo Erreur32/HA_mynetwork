@@ -4,13 +4,15 @@
 
 **Multi-Source Network Dashboard** for Home Assistant.
 
+**Version:** `0.1.15`
+
 **[Documentation en français](https://github.com/Erreur32/HA_mynetwork/blob/main/mynetwork/DOCS_FR.md)**
 
 A unified dashboard to manage and monitor your network devices:
 
-- **Freebox** — full management (Ultra, Delta, Pop): WiFi, LAN, downloads, VMs, TV, phone.
-- **UniFi Controller** — AP monitoring, clients, traffic, multi-site (local + cloud).
-- **Network Scan** — automatic device discovery (IP, MAC, hostname, vendor via Wireshark DB).
+- **Freebox**  full management (Ultra, Delta, Pop): WiFi, LAN, downloads, VMs, TV, phone.
+- **UniFi Controller**  AP monitoring, clients, traffic, multi-site (local + cloud).
+- **Network Scan**   automatic device discovery (IP, MAC, hostname, vendor via Wireshark DB).
 
 ### Features
 

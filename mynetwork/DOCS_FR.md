@@ -4,12 +4,14 @@
 
 **Dashboard Réseau Multi-Sources** pour Home Assistant.
 
+**Version :** `0.1.15`
+
 
 Dashboard unifié pour gérer et surveiller vos équipements réseau :
 
-- **Freebox** — gestion complète (Ultra, Delta, Pop) : WiFi, LAN, téléchargements, VMs, TV, téléphone.
-- **UniFi Controller** — monitoring APs, clients, trafic, multi-sites (local + cloud).
-- **Scan réseau** — découverte automatique des appareils (IP, MAC, hostname, fabricant via Wireshark DB).
+- **Freebox**    gestion complète (Ultra, Delta, Pop) : WiFi, LAN, téléchargements, VMs, TV, téléphone.
+- **UniFi Controller**   monitoring APs, clients, trafic, multi-sites (local + cloud).
+- **Scan réseau**  découverte automatique des appareils (IP, MAC, hostname, fabricant via Wireshark DB).
 
 ### Fonctionnalités
 
