@@ -13,4 +13,4 @@ configuration:
     name: Admin (email)
   freebox_host:
     name: Freebox host
-    description: Optionnel (ex: mafreebox.freebox.fr)
+    description: "Optionnel (ex: mafreebox.freebox.fr)"
