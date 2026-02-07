@@ -4,7 +4,7 @@
 
 **Multi-Source Network Dashboard** for Home Assistant.
 
-**[Documentation en français](DOCS_FR.md)**
+**[Documentation en français](https://github.com/Erreur32/HA_mynetwork/blob/main/mynetwork/DOCS_FR.md)**
 
 A unified dashboard to manage and monitor your network devices:
 

@@ -4,6 +4,34 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.13]
+
+### Fixed
+
+- **`EACCES: permission denied, open '/app/data/oui.txt'`** : le code upstream écrit dans `/app/data/` (layer Docker en lecture seule). **run.sh** crée maintenant un symlink `/app/data` → `/data` (volume persistant Supervisor) au démarrage, après avoir copié les éventuels fichiers par défaut de l'image.
+- **Ingress shim** (suite 0.1.12) : le shim `fetch/XHR/WebSocket/pushState` est maintenant injecté de manière fiable grâce au `chmod u+w /app/dist` dans le Dockerfile.
+
+### Changed
+
+- **run.sh** : ajout du bloc symlink `/app/data` → `/data` avant le lancement de l'app.
+
+---
+
+## [0.1.12]
+
+### Fixed
+
+- **Ingress page blanche (fix définitif)** : le simple remplacement `/assets/` → `./assets/` ne suffisait pas. Le JavaScript de l'app fait des appels API (`fetch("/api/...")`) et WebSocket (`new WebSocket("/ws/...")`) en chemin absolu, qui passent à côté du proxy Ingress.
+  - **Shim Ingress** : un script `<script data-ingress-shim>` est injecté automatiquement dans `index.html` au démarrage. Il intercepte `fetch()`, `XMLHttpRequest.open()`, `WebSocket()`, `history.pushState()` et `history.replaceState()` pour préfixer transparemment toute URL commençant par `/` avec le chemin Ingress (`/api/hassio_ingress/<token>`). Hors Ingress, le shim est un no-op.
+  - **Dockerfile** : `chmod -R u+w /app/dist` pour rendre le répertoire front-end accessible en écriture (élimine les erreurs `Permission denied` du patch).
+
+### Changed
+
+- **run.sh** : le bloc de patch `index.html` a été réécrit : fix assets (sed) + injection du shim JS (via `node`), idempotent.
+- **Dockerfile** : ajout `RUN chmod -R u+w /app/dist` avant ENTRYPOINT.
+
+---
+
 ## [0.1.11]
 
 ### Fixed

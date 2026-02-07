@@ -87,21 +87,113 @@ if [ -w /data ] && command -v chown >/dev/null 2>&1; then
   chmod -R 755 /data 2>/dev/null || true
 fi
 
-# Fix Ingress: upstream vite build uses absolute paths (/assets/...) in index.html.
-# Ingress reverse proxy prefixes all URLs with /api/hassio_ingress/<token>/, so absolute
-# paths break (browser loads /assets/... instead of /api/hassio_ingress/.../assets/...).
-# Patch: replace "/assets/" with "./assets/" so paths are relative to the current URL.
+# Symlink /app/data → /data so upstream code that writes to /app/data/
+# (e.g. OUI vendor database download, config files) uses the persistent
+# Supervisor volume instead of the read-only image layer.
+# Without this: "EACCES: permission denied, open '/app/data/oui.txt'"
+if [ ! -L "/app/data" ]; then
+  # Preserve any default files shipped in the image's /app/data/
+  if [ -d "/app/data" ]; then
+    cp -rn /app/data/* /data/ 2>/dev/null || true
+  fi
+  rm -rf /app/data 2>/dev/null || true
+  ln -sf /data /app/data
+  log "/app/data symlinked to /data (persistent storage)"
+fi
+
+# ── Ingress compatibility: comprehensive index.html patching ─────────────
+#
+# Home Assistant Ingress reverse-proxies requests through:
+#   /api/hassio_ingress/<session_token>/...
+#
+# The upstream Vite build has TWO problems under Ingress:
+#
+#   1. HTML references assets with absolute paths (/assets/index-xxx.js).
+#      The browser resolves these to http://HA:8123/assets/... (HA host root)
+#      instead of http://HA:8123/api/hassio_ingress/<token>/assets/...
+#      → FIX: replace "/assets/" with "./assets/" (relative to current URL).
+#
+#   2. The JavaScript bundle makes API calls (fetch("/api/...")) and opens
+#      WebSocket connections (new WebSocket("/ws/...")) using absolute paths.
+#      These also bypass the Ingress proxy and hit HA's own API or 404.
+#      → FIX: inject a small "shim" <script> at the top of <head> that
+#        overrides window.fetch, XMLHttpRequest.open, and WebSocket so that
+#        any URL starting with "/" is transparently prefixed with the Ingress
+#        base path (e.g. /api/hassio_ingress/abc123).  When not running
+#        under Ingress the shim detects this and does nothing (safe no-op).
+#
 INDEX_HTML="/app/dist/index.html"
 if [ -f "$INDEX_HTML" ]; then
-  if grep -q '"/assets/' "$INDEX_HTML" 2>/dev/null || grep -q "'/assets/" "$INDEX_HTML" 2>/dev/null; then
-    log "Patching index.html: absolute /assets/ → relative ./assets/ (Ingress fix)"
-    # sed -i needs write permission; image files may be read-only → use tmp + mv
-    TMP_HTML="/tmp/index.html.patched"
-    sed 's|"/assets/|"./assets/|g' "$INDEX_HTML" | sed "s|'/assets/|'./assets/|g" > "$TMP_HTML"
-    cp "$TMP_HTML" "$INDEX_HTML" 2>/dev/null || { chmod u+w "$INDEX_HTML" && cp "$TMP_HTML" "$INDEX_HTML"; }
-    rm -f "$TMP_HTML"
-    log "index.html patched OK"
+  log "Applying Ingress patches to index.html..."
+  TMP_HTML="/tmp/index.html.patched"
+  cp "$INDEX_HTML" "$TMP_HTML"
+
+  # ── Fix 1: asset paths  /assets/ → ./assets/ ──────────────────────
+  sed -i 's|"/assets/|"./assets/|g' "$TMP_HTML" 2>/dev/null || true
+  sed -i "s|'/assets/|'./assets/|g" "$TMP_HTML" 2>/dev/null || true
+
+  # ── Fix 2: inject Ingress shim (idempotent — skipped if already present) ──
+  if ! grep -q 'data-ingress-shim' "$TMP_HTML" 2>/dev/null; then
+
+    # Write the shim HTML to a temp file (heredoc with 'EOF' = no shell expansion)
+    cat > /tmp/ingress-shim.html << 'SHIMEOF'
+<script data-ingress-shim>
+/* HA Ingress URL rewriter – intercepts browser APIs so absolute paths
+   like /api/... and /ws/... are routed through the Ingress reverse proxy.
+   When the page is NOT loaded via Ingress the shim is a harmless no-op. */
+(function(){
+  var m=window.location.pathname.match(/^\/api\/hassio_ingress\/[^\/]+/);
+  if(!m)return;
+  var B=m[0];
+  function fix(u){return(typeof u==="string"&&u.charAt(0)==="/"&&!u.startsWith(B))?B+u:u;}
+
+  /* fetch() */
+  var _f=window.fetch;
+  window.fetch=function(u,o){return _f.call(this,fix(u),o);};
+
+  /* XMLHttpRequest.open() */
+  var _xo=XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open=function(){
+    var a=[].slice.call(arguments);a[1]=fix(a[1]);return _xo.apply(this,a);};
+
+  /* WebSocket() */
+  var _W=window.WebSocket;
+  window.WebSocket=function(u,p){u=fix(u);return p!==void 0?new _W(u,p):new _W(u);};
+  window.WebSocket.prototype=_W.prototype;
+  window.WebSocket.CONNECTING=_W.CONNECTING;
+  window.WebSocket.OPEN=_W.OPEN;
+  window.WebSocket.CLOSING=_W.CLOSING;
+  window.WebSocket.CLOSED=_W.CLOSED;
+
+  /* history.pushState / replaceState – keep SPA routes inside Ingress scope */
+  var _ps=history.pushState;var _rs=history.replaceState;
+  history.pushState=function(s,t,u){return _ps.call(this,s,t,fix(u));};
+  history.replaceState=function(s,t,u){return _rs.call(this,s,t,fix(u));};
+})();
+</script>
+SHIMEOF
+
+    # Use node (always present in the image) to inject shim after <head>
+    cat > /tmp/inject-shim.js << 'JSEOF'
+var fs = require('fs');
+var shim = fs.readFileSync('/tmp/ingress-shim.html', 'utf8').trim();
+var path = process.argv[2];
+var html = fs.readFileSync(path, 'utf8');
+// Insert shim right after <head> (with or without attributes)
+html = html.replace(/<head([^>]*)>/, '<head$1>' + shim);
+fs.writeFileSync(path, html);
+JSEOF
+    node /tmp/inject-shim.js "$TMP_HTML"
+    rm -f /tmp/inject-shim.js /tmp/ingress-shim.html
+    log "Ingress shim injected (fetch / XHR / WebSocket / pushState rewriter)"
+  else
+    log "Ingress shim already present, skipping injection"
   fi
+
+  # Copy patched file back (Dockerfile makes dist writable; fallback chmod just in case)
+  cp "$TMP_HTML" "$INDEX_HTML" 2>/dev/null || { chmod u+w "$INDEX_HTML" && cp "$TMP_HTML" "$INDEX_HTML"; }
+  rm -f "$TMP_HTML"
+  log "Ingress patches applied to index.html"
 fi
 
 # Start app: use upstream entrypoint if present, else run tsx directly (with su-exec if available)

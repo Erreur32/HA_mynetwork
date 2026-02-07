@@ -11,5 +11,9 @@ RUN apk add --no-cache jq
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
+# Make frontend dist writable so the Ingress shim can be injected at runtime
+# (image layers are read-only; without this, sed/cp would fail on index.html)
+RUN chmod -R u+w /app/dist 2>/dev/null || true
+
 ENTRYPOINT []
 CMD ["/run.sh"]
