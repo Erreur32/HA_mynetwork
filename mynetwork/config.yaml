@@ -1,0 +1,48 @@
+name: "MynetworK"
+slug: "mynetwork"
+version: "0.5.6"
+description: "MynetworK dans Home Assistant (Ingress, aucun sensor)"
+arch:
+  - amd64
+  - aarch64
+  - armv7
+  # - armhf  # optionnel si image linux/arm/v6 publiée
+
+startup: application
+init: false
+
+ingress: true
+ingress_port: 3000
+ingress_entry: /
+panel_title: "MynetworK"
+panel_icon: "mdi:network"
+panel_admin: false
+
+watchdog: "http://[HOST]:[PORT:3000]/api/health"
+
+privileged:
+  - NET_RAW
+  - NET_ADMIN
+
+# host_network: true  # activer uniquement si scan incomplet (à documenter)
+
+# IMPORTANT : volume Supervisor mappé sur /app/data (aligné avec l'entrypoint upstream)
+map:
+  - type: data
+    path: /app/data
+    read_only: false
+
+options:
+  log_level: "info"
+  jwt_secret: ""
+  default_admin_username: "admin"
+  default_admin_password: ""
+  default_admin_email: "admin@localhost"
+  freebox_host: ""
+schema:
+  log_level: list(debug|info|warning|error)
+  jwt_secret: password
+  default_admin_username: str
+  default_admin_password: password
+  default_admin_email: str
+  freebox_host: str?
