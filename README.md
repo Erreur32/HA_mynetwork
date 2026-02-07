@@ -141,28 +141,7 @@ See [mynetwork/DOCS.md](mynetwork/DOCS.md) for full documentation.
 - **Data**: Stored in the app data volume (`/data`): database, config, Freebox token. Data persists across restarts and updates.
 
 ---
-
-## Version bump (maintainers)
-
-Before pushing a new release, run from the repo root:
-
-```bash
-./bump-version.sh 0.0.5
-```
-
-Then add an entry in [mynetwork/CHANGELOG.md](mynetwork/CHANGELOG.md) for the new version, commit and push.
-
-## Add-on icon (maintainers)
-
-The Supervisor shows `mynetwork/icon.png`. To use the **official MynetworK logo** (from [MynetworK/src/icons](https://github.com/Erreur32/MynetworK/tree/main/src/icons)), run from the repo root:
-
-```bash
-./update-addon-icon.sh
-```
-
-Requires **curl** or **wget** and one of **rsvg-convert** (librsvg), **ImageMagick** (convert/magick), or **Inkscape**. The script downloads `logo_mynetwork.svg` and generates `mynetwork/icon.png` (128×128). Then commit the updated `icon.png`.
-
----
+ 
 
 ## Support
 
