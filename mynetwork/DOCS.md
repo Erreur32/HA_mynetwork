@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.0.7` (amd64, aarch64, armv7).
+- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.0.8` (amd64, aarch64, armv7).
 - Network capabilities: **NET_RAW** and **NET_ADMIN** are required for network scanning.
 
 ## Installation

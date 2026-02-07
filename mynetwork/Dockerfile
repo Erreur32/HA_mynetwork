@@ -1,10 +1,11 @@
-ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.0.7
+ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.0.8
 FROM ${BUILD_FROM}
 
 # Fail build if base image is missing app (e.g. wrong tag or incomplete image)
 RUN test -f /app/server/index.ts && test -x /app/node_modules/.bin/tsx || (echo "FATAL: base image must have /app/server and /app/node_modules (use ghcr.io/erreur32/mynetwork:TAG from https://github.com/Erreur32/MynetworK)" && exit 1)
 
-# jq to read /data/options.json (Supervisor)
+# Base image may set USER node; apk needs root
+USER root
 RUN apk add --no-cache jq
 
 COPY run.sh /run.sh

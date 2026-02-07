@@ -40,7 +40,7 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.0.7` · **Compatible with Home Assistant 2025.x / 2026.x** (Supervisor, Settings → Apps)
+**Current version:** `0.0.8` · **Compatible with Home Assistant 2025.x / 2026.x** (Supervisor, Settings → Apps)
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress only** — no exposed port, no sensors; the UI is available from the sidebar panel.
 
@@ -69,12 +69,13 @@ HA_mynetwork/
 ├── bump-version.sh         # Script to bump version before push
 ├── update-addon-icon.sh    # Script to refresh icon from MynetworK logo (SVG → PNG)
 ├── README.md               # This file
-├── CHANGELOG.md            # Version history
 └── mynetwork/              # MynetworK add-on
     ├── config.yaml
     ├── Dockerfile
     ├── run.sh
     ├── apparmor.txt
+    ├── build.yaml
+    ├── CHANGELOG.md        # Changelog (visible in HA app)
     ├── DOCS.md
     ├── README.md
     ├── icon.png
@@ -149,7 +150,7 @@ Before pushing a new release, run from the repo root:
 ./bump-version.sh 0.0.5
 ```
 
-Then add an entry in [CHANGELOG.md](CHANGELOG.md) for the new version, commit and push.
+Then add an entry in [mynetwork/CHANGELOG.md](mynetwork/CHANGELOG.md) for the new version, commit and push.
 
 ## Add-on icon (maintainers)
 
@@ -187,8 +188,8 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.0.7-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.0.7
+[release-shield]: https://img.shields.io/badge/version-v0.0.8-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.0.8
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
 [mynetwork-shield]: https://img.shields.io/badge/based%20on-MynetworK-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
