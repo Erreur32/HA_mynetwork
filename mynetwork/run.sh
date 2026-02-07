@@ -11,6 +11,7 @@ OPTS="/data/options.json"
 
 # Defaults
 LOG_LEVEL="info"
+SERVER_PORT="3000"
 JWT_SECRET=""
 DEFAULT_ADMIN_USERNAME="admin"
 DEFAULT_ADMIN_PASSWORD=""
@@ -21,6 +22,7 @@ if [ -f "$OPTS" ]; then
   log "Reading options from $OPTS"
   if command -v jq >/dev/null 2>&1; then
     LOG_LEVEL="$(jq -r '.log_level // "info"' "$OPTS" 2>/dev/null)" || true
+    SERVER_PORT="$(jq -r '.server_port // 3000 | tostring' "$OPTS" 2>/dev/null)" || true
     JWT_SECRET="$(jq -r '.jwt_secret // ""' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_USERNAME="$(jq -r '.default_admin_username // "admin"' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_PASSWORD="$(jq -r '.default_admin_password // ""' "$OPTS" 2>/dev/null)" || true
@@ -37,7 +39,9 @@ fi
 LOG_LEVEL="$(echo "$LOG_LEVEL" | tr '[:upper:]' '[:lower:]')"
 export LOG_LEVEL
 
-export PORT=3000
+# Port: from option server_port (default 3000). Ingress and watchdog use 3000 in the manifest; keep 3000 for standard use.
+export PORT="${SERVER_PORT:-3000}"
+export DASHBOARD_PORT="${SERVER_PORT:-3000}"
 export NODE_ENV=production
 export DOCKER=true
 

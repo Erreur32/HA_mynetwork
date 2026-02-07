@@ -8,7 +8,7 @@
 
 ## Prerequisites
 
-- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.0.9` (amd64, aarch64, armv7).
+- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.1.0` (amd64, aarch64, armv7).
 - Network capabilities: **NET_RAW** and **NET_ADMIN** are required for network scanning.
 
 ## Installation
@@ -47,6 +47,7 @@
 ## Configuration (options)
 
 - **log_level**: log level (debug, info, warning, error). When set to **debug**, the wrapper prints extra diagnostics (env, paths, `/app` and `/data` listing) and enables Node.js `--trace-warnings` and `--trace-uncaught` so crashes show full stack traces in the add-on Log tab. The MynetworK app’s own debug (HTTP request logs, etc.) is controlled inside the app (Administration → configuration) and stored in the database, not by this option.
+- **server_port**: port d'écoute du serveur (défaut **3000**). À garder à 3000 pour que l'Ingress et le watchdog fonctionnent (le manifest utilise ce port). Modifiable pour un build personnalisé où `ingress_port` et `ports` seraient alignés.
 - **jwt_secret**: JWT secret for session security — **recommended (required in production)**.
 - **default_admin_username**: initial admin account username.
 - **default_admin_password**: initial admin account password.

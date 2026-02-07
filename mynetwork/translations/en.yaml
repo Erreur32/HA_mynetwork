@@ -2,6 +2,9 @@ configuration:
   log_level:
     name: Log level
     description: debug/info/warning/error
+  server_port:
+    name: Server port
+    description: Port the app listens on (default 3000). Keep 3000 for Ingress and watchdog.
   jwt_secret:
     name: JWT secret
     description: Recommended to secure sessions

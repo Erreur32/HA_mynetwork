@@ -4,6 +4,20 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0]
+
+### Added
+
+- **Option server_port**: configurable port d'écoute (défaut 3000) dans l'onglet Configuration. Traductions en/fr (Server port / Port du serveur). Garder 3000 pour Ingress et le watchdog.
+- **run.sh**: export de `DASHBOARD_PORT` en plus de `PORT` pour que l'app serve HTTP et frontend sur le même port (compatibilité Ingress).
+
+### Changed
+
+- **run.sh**: lecture de l'option `server_port` depuis `options.json` ; `PORT` et `DASHBOARD_PORT` utilisent cette valeur.
+- **DOCS.md**: section Configuration mise à jour avec la description de `server_port`.
+
+---
+
 ## [0.0.9]
 
 ### Added
