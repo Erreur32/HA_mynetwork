@@ -1,7 +1,7 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.0.1"
-description: "MynetworK in Home Assistant (Ingress only, no sensors)"
+version: "0.0.2"
+description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
   - aarch64

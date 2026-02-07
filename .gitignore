@@ -1,0 +1,20 @@
+# Internal / non-essential for the published app
+HA_mynetwork_repo_complet_2026.md
+
+# bump-version.sh backups
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local / env (if any)
+.env
+.env.local

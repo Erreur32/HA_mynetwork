@@ -1,68 +1,190 @@
-# MynetworK Apps — Home Assistant
+# Home Assistant Add-on Repository: MynetworK
 
-[![HA add-on version](https://img.shields.io/badge/HA_mynetwork-0.0.1-blue)](https://github.com/Erreur32/HA_mynetwork)
-[![Based on MynetworK](https://img.shields.io/badge/based%20on-MynetworK-orange)](https://github.com/Erreur32/MynetworK)
-[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-App%20(Supervisor)-41BDF5)](https://www.home-assistant.io/)
+<div align="center">
 
-Home Assistant (Supervisor) app repository for **MynetworK**. The MynetworK app is **Ingress only**: UI via the sidebar only, no sensors exposed to Home Assistant.
+<img src="https://raw.githubusercontent.com/Erreur32/MynetworK/main/src/icons/logo_mynetwork.svg" alt="MynetworK" width="96" height="96" />
 
-**Version:** This repository provides the **HA_mynetwork** add-on **v0.0.1**. The add-on wraps the official **[MynetworK](https://github.com/Erreur32/MynetworK)** application (multi-source network dashboard: Freebox, UniFi, network scan). Check the [official MynetworK repo](https://github.com/Erreur32/MynetworK) for upstream releases and features.
+![MynetworK](https://img.shields.io/badge/MynetworK-HA%20Add--on-111827?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-stable-374151?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-Ready-1f2937?style=for-the-badge&logo=docker&logoColor=38bdf8)
+[![Docker Image](https://img.shields.io/badge/GHCR-ghcr.io%2Ferreur32%2Fmynetwork-1f2937?style=for-the-badge&logo=docker&logoColor=38bdf8)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
+[![Release][release-shield]][release]
+[![Home Assistant][ha-shield]][ha]
+[![License][license-shield]][license]
+[![Issues][issues-shield]][issue]
+[![Stargazers][stars-shield]][stars]
 
-App presentation follows [Home Assistant "Presenting your app"](https://developers.home-assistant.io/docs/apps/presentation): **intro** (short app store summary) is in [mynetwork/README.md](mynetwork/README.md), full **documentation** in [mynetwork/DOCS.md](mynetwork/DOCS.md), and version history in [CHANGELOG.md](CHANGELOG.md). Structure matches the [Making your first app](https://developers.home-assistant.io/docs/apps/tutorial) tutorial: `Dockerfile`, `config.yaml`, and `run.sh` in each app folder.
+<h1 align="center">MynetworK</h1>
+<p align="center">
+  Unified Freebox + UniFi management in Home Assistant.
+</p>
 
-## Prerequisites
+---
 
-- Home Assistant with Supervisor.
-- Multi-arch MynetworK Docker image published: `ghcr.io/erreur32/mynetwork` (tags aligned with add-on version, e.g. `0.0.1`), for **amd64**, **aarch64**, **armv7**.
+<p align="center">
+  <sub>Powered by</sub><br/>
+  <img src="https://raw.githubusercontent.com/Erreur32/MynetworK/main/img-capture/free-sas.png" alt="Freebox" height="32" />
+  &nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/Erreur32/MynetworK/main/img-capture/ubiquiti-networks.svg" alt="Ubiquiti Unifi" height="32" />
+</p>
 
-## Installation
+**A multi-source network dashboard for Freebox, UniFi and your networks — as a Home Assistant add-on (Ingress only).**
 
-**One-click links (My Home Assistant):**
+[Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](mynetwork/DOCS.md)
 
-1. Open your Home Assistant instance and show the **App store**, then add the repository URL below.
-2. Or add this repository directly (opens the "Add repository" dialog with this repo pre-filled).
+</div>
 
-| Action | Link |
-|--------|------|
-| **Open App Store** | [![Open your Home Assistant instance and show the App store.](https://my.home-assistant.io/badges/supervisor_store.svg)](https://my.home-assistant.io/redirect/supervisor_store/) |
-| **Add this repository** | [![Add repository](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FErreur32%2FHA_mynetwork) |
+---
 
-**Manual steps:**
+## About
 
-1. In Home Assistant: **Settings** → **Apps** → **Repositories** (or **Supervisor** → **Add-on store** → **Repositories**).
-2. Add this repository with URL:
-   ```text
-   https://github.com/Erreur32/HA_mynetwork
-   ```
-3. Reload repositories if prompted.
-4. Install **MynetworK** from the add-on list.
-5. Configure options (admin password, `jwt_secret` recommended), then **Start**.
-6. Open MynetworK from the **sidebar** (Ingress panel).
+This repository contains the **MynetworK** add-on for Home Assistant.
 
-## Repository structure
+**Current version:** `0.0.2`
 
-```text
+[MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress only** — no exposed port, no sensors; the UI is available from the sidebar panel.
+
+> [!IMPORTANT]
+> **This is not an official Home Assistant add-on.**  
+> **This add-on has no web port** — access is **Ingress only** (sidebar).  
+> **This repository is the Home Assistant wrapper for the [MynetworK](https://github.com/Erreur32/MynetworK) application.**
+
+---
+
+## Quick Start
+
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FErreur32%2FHA_mynetwork)
+
+1. Click the button above
+2. Click **ADD** and **RESTART** Home Assistant (if prompted)
+3. Go to [Add-on Store](https://my.home-assistant.io/redirect/supervisor_store/)
+4. Search for **"MynetworK"**
+5. Click **Install**, then **Start**
+6. Open MynetworK from the **sidebar** (Ingress panel)
+
+---
+
+## Repository Structure
+
+```
 HA_mynetwork/
-├── repository.yaml          # Repository definition (name, URL, maintainer)
-├── README.md                # This file
-├── CHANGELOG.md             # Version history
-└── mynetwork/               # MynetworK app
-    ├── config.yaml          # Supervisor config (Ingress, watchdog, options)
-    ├── Dockerfile           # Wrapper over ghcr.io/erreur32/mynetwork image
-    ├── run.sh               # Startup script (options → env → upstream entrypoint)
-    ├── apparmor.txt         # Custom AppArmor profile (security, see HA presentation doc)
-    ├── DOCS.md              # Full documentation (install, UI, persistence, security)
-    ├── README.md            # App intro (app store)
-    ├── icon.png             # App icon
+├── repository.yaml          # Repository metadata
+├── bump-version.sh         # Script to bump version before push
+├── README.md               # This file
+├── CHANGELOG.md            # Version history
+└── mynetwork/              # MynetworK add-on
+    ├── config.yaml
+    ├── Dockerfile
+    ├── run.sh
+    ├── apparmor.txt
+    ├── DOCS.md
+    ├── README.md
+    ├── icon.png
     └── translations/
         ├── en.yaml
         └── fr.yaml
 ```
 
-## Documentation
+For detailed add-on documentation, see [mynetwork/DOCS.md](mynetwork/DOCS.md) and [mynetwork/README.md](mynetwork/README.md).
 
-- **Installation, configuration, persistence, security and troubleshooting**: see [mynetwork/DOCS.md](mynetwork/DOCS.md).
+---
 
-## Maintainer
+## Features
 
-Erreur32
+✔️ Multi-source network dashboard (Freebox, UniFi, network scan)  
+✔️ Ingress only — no port exposure, UI in sidebar  
+✔️ Persistence in `/app/data` (database, config, tokens)  
+✔️ Watchdog and custom AppArmor profile  
+✔️ Options: `jwt_secret`, admin account, `freebox_host`, log level  
+
+---
+
+## Installation
+
+1. **Open the Home Assistant Add-on Store**  
+   [Access the Store](https://my.home-assistant.io/redirect/supervisor_store/)
+
+2. **Add this repository**
+   ```
+   https://github.com/Erreur32/HA_mynetwork
+   ```
+
+3. **Search for "MynetworK"** in the Add-on Store
+
+4. **Install** the add-on and **Start** it
+
+5. Open **MynetworK** from the sidebar (Ingress panel)
+
+---
+
+## Configuration
+
+Configure the add-on in the **Configuration** tab. Main options:
+
+| Option | Description |
+|--------|-------------|
+| `log_level` | debug / info / warning / error |
+| `jwt_secret` | **Required in production** — secures sessions |
+| `default_admin_username` | Initial admin username |
+| `default_admin_password` | Initial admin password |
+| `default_admin_email` | Initial admin email |
+| `freebox_host` | Optional (e.g. `mafreebox.freebox.fr`) |
+
+See [mynetwork/DOCS.md](mynetwork/DOCS.md) for full documentation.
+
+---
+
+## Usage
+
+- **UI**: Open the **MynetworK** panel from the Home Assistant sidebar. No URL or port to remember.
+- **First run**: If the database is empty, an admin account is created from the options above. Set a strong password and `jwt_secret` before production use.
+- **Data**: Stored in the add-on data volume (`/app/data`): database, config, Freebox token. Data persists across restarts and updates.
+
+---
+
+## Version bump (maintainers)
+
+Before pushing a new release, run from the repo root:
+
+```bash
+./bump-version.sh 0.0.2
+```
+
+Then add an entry in [CHANGELOG.md](CHANGELOG.md) for the new version, commit and push.
+
+---
+
+## Support
+
+Questions or issues? Open an issue: [issue tracker][issue].
+
+## Contributing
+
+This is an open-source project. Contributions are welcome.
+
+## Authors & contributors
+
+The original setup of this repository is by [Erreur32][erreur32].
+
+For a full list of contributors, see [the contributor's page][contributors].
+
+## License
+
+MIT License — see the [LICENSE][license] file for details.
+
+[contributors]: https://github.com/Erreur32/HA_mynetwork/graphs/contributors
+[erreur32]: https://github.com/Erreur32
+[issue]: https://github.com/Erreur32/HA_mynetwork/issues
+[license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
+[release-shield]: https://img.shields.io/badge/version-v0.0.2-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.0.2
+[license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
+[mynetwork-shield]: https://img.shields.io/badge/based%20on-MynetworK-orange.svg
+[mynetwork-upstream]: https://github.com/Erreur32/MynetworK
+[ha-shield]: https://img.shields.io/badge/Home%20Assistant-App%20(Supervisor)-41BDF5.svg
+[ha]: https://www.home-assistant.io/
+[issues-shield]: https://img.shields.io/github/issues/Erreur32/HA_mynetwork.svg
+[stars-shield]: https://img.shields.io/github/stars/Erreur32/HA_mynetwork.svg
+[stars]: https://github.com/Erreur32/HA_mynetwork/stargazers
