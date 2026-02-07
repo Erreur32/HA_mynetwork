@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.0.3` (amd64, aarch64, armv7).
+- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.0.4` (amd64, aarch64, armv7).
 - Network capabilities: **NET_RAW** and **NET_ADMIN** are required for network scanning.
 
 ## Installation
@@ -74,7 +74,7 @@
 
 ## Icon and logo
 
-- **Icon**: `icon.png` in PNG format, 1:1 (square), recommended size 128×128 px ([Home Assistant recommendations](https://developers.home-assistant.io/docs/apps/presentation#app-icon--logo)).
+- **Icon**: The add-on uses the **official MynetworK logo** as `icon.png` (PNG, 1:1, 128×128 px). Home Assistant requires PNG ([recommendations](https://developers.home-assistant.io/docs/apps/presentation#app-icon--logo)). To refresh the icon from the [MynetworK repo](https://github.com/Erreur32/MynetworK/tree/main/src/icons), run from the HA_mynetwork repo root: `./update-addon-icon.sh` (requires curl/wget and rsvg-convert or ImageMagick).
 - **Logo** (optional): a `logo.png` file in PNG format, recommended size about 250×100 px, can be added to improve presentation in the Supervisor.
 
 ## License

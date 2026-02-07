@@ -40,7 +40,7 @@
 
 This repository contains the **MynetworK** add-on for Home Assistant.
 
-**Current version:** `0.0.3`
+**Current version:** `0.0.1`
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress only** — no exposed port, no sensors; the UI is available from the sidebar panel.
 
@@ -70,6 +70,7 @@ This repository contains the **MynetworK** add-on for Home Assistant.
 HA_mynetwork/
 ├── repository.yaml          # Repository metadata
 ├── bump-version.sh         # Script to bump version before push
+├── update-addon-icon.sh    # Script to refresh icon from MynetworK logo (SVG → PNG)
 ├── README.md               # This file
 ├── CHANGELOG.md            # Version history
 └── mynetwork/              # MynetworK add-on
@@ -152,6 +153,16 @@ Before pushing a new release, run from the repo root:
 
 Then add an entry in [CHANGELOG.md](CHANGELOG.md) for the new version, commit and push.
 
+## Add-on icon (maintainers)
+
+The Supervisor shows `mynetwork/icon.png`. To use the **official MynetworK logo** (from [MynetworK/src/icons](https://github.com/Erreur32/MynetworK/tree/main/src/icons)), run from the repo root:
+
+```bash
+./update-addon-icon.sh
+```
+
+Requires **curl** or **wget** and one of **rsvg-convert** (librsvg), **ImageMagick** (convert/magick), or **Inkscape**. The script downloads `logo_mynetwork.svg` and generates `mynetwork/icon.png` (128×128). Then commit the updated `icon.png`.
+
 ---
 
 ## Support
@@ -178,8 +189,8 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.0.3-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.0.3
+[release-shield]: https://img.shields.io/badge/version-v0.0.1-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.0.1
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
 [mynetwork-shield]: https://img.shields.io/badge/based%20on-MynetworK-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK

@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.0.3
+ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.0.4
 FROM ${BUILD_FROM}
 
 # jq to read /app/data/options.json (Supervisor)

@@ -4,6 +4,29 @@ All notable changes to this repository are documented here. Minor changes (typos
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for app versions.
 
+## [0.0.4] — (current)
+
+### Added
+
+- **Security hardening**: reinforcement of the add-on security (configuration, documentation, and runtime behaviour improvements to reduce exposure and follow best practices).  
+
+---
+
+## [0.0.3] — 2026-02-07
+
+### Added
+
+- **update-addon-icon.sh**: download official MynetworK logo (SVG) and convert to `mynetwork/icon.png` (128×128) for the add-on; DOCS and README updated.
+- **update-version.sh** (local): version bump script with `chown debian32:debian32` when run as root; when run without argument, displays current version and exact command to type for next version.
+- Add-on icon: use official MynetworK logo (PNG generated from upstream SVG).
+
+### Changed
+
+- **run.sh**: robust startup when `/app/docker-entrypoint.sh` is missing — fix `/app/data` permissions, then try entrypoint, else `su-exec node`, else run tsx directly.
+- **.gitignore**: ignore `update-version.sh` (local script).
+
+---
+
 ## [0.0.2] — 2026-02-07
 
 ### Added

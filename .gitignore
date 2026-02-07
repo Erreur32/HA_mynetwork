@@ -1,6 +1,9 @@
 # Internal / non-essential for the published app
 HA_mynetwork_repo_complet_2026.md
 
+# Local version bump script (machine-specific, e.g. chown debian32)
+update-version.sh
+
 # bump-version.sh backups
 *.bak
 
