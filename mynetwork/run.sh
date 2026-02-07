@@ -87,18 +87,13 @@ if [ -w /data ] && command -v chown >/dev/null 2>&1; then
   chmod -R 755 /data 2>/dev/null || true
 fi
 
-# Symlink /app/data → /data so upstream code that writes to /app/data/
-# (e.g. OUI vendor database download, config files) uses the persistent
-# Supervisor volume instead of the read-only image layer.
-# Without this: "EACCES: permission denied, open '/app/data/oui.txt'"
-if [ ! -L "/app/data" ]; then
-  # Preserve any default files shipped in the image's /app/data/
-  if [ -d "/app/data" ]; then
-    cp -rn /app/data/* /data/ 2>/dev/null || true
-  fi
-  rm -rf /app/data 2>/dev/null || true
-  ln -sf /data /app/data
-  log "/app/data symlinked to /data (persistent storage)"
+# Copy default files from image into /data (first run only — don't overwrite existing).
+# The Dockerfile already created /app/data as a symlink → /data, so upstream code
+# that writes to /app/data/ actually writes to the persistent Supervisor volume.
+# /app/data_defaults/ holds files that were originally in the image's /app/data/.
+if [ -d "/app/data_defaults" ]; then
+  cp -rn /app/data_defaults/* /data/ 2>/dev/null || true
+  log "Default data files copied to /data"
 fi
 
 # ── Ingress compatibility: comprehensive index.html patching ─────────────
