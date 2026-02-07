@@ -1,8 +1,10 @@
 # MynetworK — App Home Assistant
 
-![MynetworK](icon.png)
+![MynetworK](https://raw.githubusercontent.com/Erreur32/HA_mynetwork/main/mynetwork/icon.png)
 
 **Dashboard Réseau Multi-Sources** pour Home Assistant.
+
+**[Documentation in English](DOCS.md)**
 
 Dashboard unifié pour gérer et surveiller vos équipements réseau :
 

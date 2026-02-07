@@ -95,8 +95,12 @@ INDEX_HTML="/app/dist/index.html"
 if [ -f "$INDEX_HTML" ]; then
   if grep -q '"/assets/' "$INDEX_HTML" 2>/dev/null || grep -q "'/assets/" "$INDEX_HTML" 2>/dev/null; then
     log "Patching index.html: absolute /assets/ → relative ./assets/ (Ingress fix)"
-    sed -i 's|"/assets/|"./assets/|g' "$INDEX_HTML"
-    sed -i "s|'/assets/|'./assets/|g" "$INDEX_HTML"
+    # sed -i needs write permission; image files may be read-only → use tmp + mv
+    TMP_HTML="/tmp/index.html.patched"
+    sed 's|"/assets/|"./assets/|g' "$INDEX_HTML" | sed "s|'/assets/|'./assets/|g" > "$TMP_HTML"
+    cp "$TMP_HTML" "$INDEX_HTML" 2>/dev/null || { chmod u+w "$INDEX_HTML" && cp "$TMP_HTML" "$INDEX_HTML"; }
+    rm -f "$TMP_HTML"
+    log "index.html patched OK"
   fi
 fi
 
