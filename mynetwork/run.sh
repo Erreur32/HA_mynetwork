@@ -6,7 +6,8 @@ log() { echo "[MynetworK add-on] $*" >&2; }
 
 log "Starting MynetworK add-on wrapper..."
 
-OPTS="/app/data/options.json"
+# Supervisor mounts add-on data at /data (see config.yaml map path: /data) so /app stays from the image
+OPTS="/data/options.json"
 
 # Defaults
 LOG_LEVEL="info"
@@ -40,10 +41,10 @@ export PORT=3000
 export NODE_ENV=production
 export DOCKER=true
 
-# Persistence (IMPORTANT: /app/data)
-export DATABASE_PATH="/app/data/dashboard.db"
-export CONFIG_FILE_PATH="/app/data/mynetwork.conf"
-export FREEBOX_TOKEN_FILE="/app/data/freebox_token.json"
+# Persistence: use /data (Supervisor mount), not /app/data, so /app from image is untouched
+export DATABASE_PATH="/data/dashboard.db"
+export CONFIG_FILE_PATH="/data/mynetwork.conf"
+export FREEBOX_TOKEN_FILE="/data/freebox_token.json"
 
 # Secrets / auth
 export JWT_SECRET
@@ -66,14 +67,14 @@ if [ "$LOG_LEVEL" = "debug" ]; then
   log "Debug mode ON: NODE_OPTIONS=$NODE_OPTIONS DEBUG_UPGRADE=true"
 fi
 
-# Ensure we are in app directory and /app/data exists with correct permissions
+# Ensure we are in app directory; /data is the Supervisor mount (options and persistence)
 cd /app 2>/dev/null || true
-mkdir -p /app/data
-if [ -w /app/data ] && command -v chown >/dev/null 2>&1; then
+mkdir -p /data
+if [ -w /data ] && command -v chown >/dev/null 2>&1; then
   NODE_UID="${NODE_UID:-1000}"
   NODE_GID="${NODE_GID:-1000}"
-  chown -R "${NODE_UID}:${NODE_GID}" /app/data 2>/dev/null || true
-  chmod -R 755 /app/data 2>/dev/null || true
+  chown -R "${NODE_UID}:${NODE_GID}" /data 2>/dev/null || true
+  chmod -R 755 /data 2>/dev/null || true
 fi
 
 # Start app: use upstream entrypoint if present, else run tsx directly (with su-exec if available)
@@ -105,7 +106,7 @@ if [ "$LOG_LEVEL" = "debug" ]; then
   log "--- DEBUG paths ---"
   log "PWD=$(pwd)"
   log "/app: $(ls -la /app 2>/dev/null | head -20)"
-  log "/app/data: $(ls -la /app/data 2>/dev/null | head -15)"
+  log "/data: $(ls -la /data 2>/dev/null | head -15)"
   log "/app/server (first): $(ls /app/server 2>/dev/null | head -5)"
   log "--- DEBUG end ---"
 fi

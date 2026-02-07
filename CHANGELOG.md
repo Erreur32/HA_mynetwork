@@ -4,6 +4,25 @@ All notable changes to this repository are documented here. Minor changes (typos
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for app versions.
 
+## [0.0.6] — (unreleased)
+
+### Added
+
+- **Compatibility**: Documentation aligned with Home Assistant 2025.x / 2026.x (terminology “Apps”, Settings → Apps, persistence `/data`, [App configuration](https://developers.home-assistant.io/docs/add-ons/configuration) and [App security](https://developers.home-assistant.io/docs/add-ons/security)).
+
+### Fixed
+
+- **Add-on not starting / "Server file not found"**: Supervisor data volume was mapped at `/app/data`, which could leave `/app` without the image content (server/, node_modules/). Data volume is now mapped at **/data**; options and persistence use `/data` (options.json, dashboard.db, etc.) so **/app** stays from the base image. Requires reinstall or rebuild of the add-on.
+- **Dockerfile**: build-time check that base image has `/app/server/index.ts` and `tsx`; build fails with a clear message if the base image is wrong.
+
+### Changed
+
+- **config.yaml**: `map` path changed from `/app/data` to `/data`.
+- **run.sh**: reads `/data/options.json`, sets `DATABASE_PATH`, `CONFIG_FILE_PATH`, `FREEBOX_TOKEN_FILE` to `/data/...`.
+- **apparmor.txt**: allow read/write on `/data/**` instead of `/app/data/**`.
+
+---
+
 ## [0.0.4] — (current)
 
 ### Added

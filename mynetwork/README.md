@@ -4,7 +4,7 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.0.5-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![Add-on version](https://img.shields.io/badge/version-0.0.6-blue)](https://github.com/Erreur32/HA_mynetwork)
 [![MynetworK upstream](https://img.shields.io/badge/MynetworK-official-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
@@ -52,7 +52,7 @@ Data (database, config, Freebox token) is stored in the add-on data volume and p
 | **log_level** | `debug` \| `info` \| `warning` \| `error`. Use **debug** for extra startup diagnostics and Node stack traces in the add-on Log. |
 | **freebox_host** | Optional. Freebox host (e.g. `mafreebox.freebox.fr`). |
 
-**Security (in the add-on Configuration tab):** The add-on declares `hassio_role: admin` so the **"Protected mode"** toggle appears under Security. Disable **"Protected mode"** so the add-on can start and use network scanning (`NET_RAW`/`NET_ADMIN`); with it on, the Supervisor may block the add-on.
+**Security (Settings → Apps → MynetworK → Information or Configuration → Security):** The app declares `hassio_role: admin` so the **"Protected mode"** toggle can appear. Disable **"Protected mode"** so the app can start and use network scanning (`NET_RAW`/`NET_ADMIN`); with it on, the Supervisor may block the app.
 
 ---
 
@@ -60,7 +60,7 @@ Data (database, config, Freebox token) is stored in the add-on data volume and p
 
 - **UI**: Open **MynetworK** from the Home Assistant **sidebar** (Ingress panel). No URL or port to configure.
 - **First run**: If the database is empty, an admin account is created from the options above. Log in and change the password if needed; ensure **jwt_secret** is set before production use.
-- **Data**: Stored in `/app/data` (database, config, Freebox token). Data persists across restarts and updates.
+- **Data**: Stored in `/data` (database, config, Freebox token). Data persists across restarts and updates.
 
 ---
 

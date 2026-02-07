@@ -38,9 +38,9 @@
 
 ## About
 
-This repository contains the **MynetworK** add-on for Home Assistant.
+This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.0.5`
+**Current version:** `0.0.6` · **Compatible with Home Assistant 2025.x / 2026.x** (Supervisor, Settings → Apps)
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress only** — no exposed port, no sensors; the UI is available from the sidebar panel.
 
@@ -54,7 +54,7 @@ This repository contains the **MynetworK** add-on for Home Assistant.
 
 1. Click the button above
 2. Click **ADD** and **RESTART** Home Assistant (if prompted)
-3. Go to [Add-on Store](https://my.home-assistant.io/redirect/supervisor_store/)
+3. Go to **Settings** → **Apps** (or [Add-on Store](https://my.home-assistant.io/redirect/supervisor_store/))
 4. Search for **"MynetworK"**
 5. Click **Install**, then **Start**
 6. Open MynetworK from the **sidebar** (Ingress panel)
@@ -91,8 +91,9 @@ For detailed add-on documentation, see [mynetwork/DOCS.md](mynetwork/DOCS.md) an
 
 ✔️ Multi-source network dashboard (Freebox, UniFi, network scan)  
 ✔️ Ingress only — no port exposure, UI in sidebar  
-✔️ Persistence in `/app/data` (database, config, tokens)  
+✔️ Persistence in `/data` (database, config, tokens)  
 ✔️ Watchdog and custom AppArmor profile  
+✔️ Compatible with Home Assistant 2025.x / 2026.x (Supervisor, Settings → Apps)  
 ✔️ Options: `jwt_secret`, admin account, `freebox_host`, log level  
 
 ---
@@ -136,7 +137,7 @@ See [mynetwork/DOCS.md](mynetwork/DOCS.md) for full documentation.
 
 - **UI**: Open the **MynetworK** panel from the Home Assistant sidebar. No URL or port to remember.
 - **First run**: If the database is empty, an admin account is created from the options above. Set a strong password and `jwt_secret` before production use.
-- **Data**: Stored in the add-on data volume (`/app/data`): database, config, Freebox token. Data persists across restarts and updates.
+- **Data**: Stored in the app data volume (`/data`): database, config, Freebox token. Data persists across restarts and updates.
 
 ---
 
@@ -186,8 +187,8 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.0.5-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.0.5
+[release-shield]: https://img.shields.io/badge/version-v0.0.6-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.0.6
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
 [mynetwork-shield]: https://img.shields.io/badge/based%20on-MynetworK-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
