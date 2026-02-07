@@ -46,7 +46,7 @@
 
 ## Configuration (options)
 
-Deux catégories : **options générales** (logs, auth, Freebox) et **Réseau** (port, affichage des ports).
+Deux catégories : **options générales** (logs, auth, Freebox) et **Réseau** (port du serveur).
 
 ### Options générales
 
@@ -59,8 +59,7 @@ Deux catégories : **options générales** (logs, auth, Freebox) et **Réseau** 
 
 ### Réseau (Network)
 
-- **server_port**: port d'écoute (défaut **3000**). Garder 3000 pour l'Ingress et le watchdog. Le port hôte actuel est affiché par HA dans **Paramètres** → **Apps** → **MynetworK** → onglet **Information** si vous exposez le port.
-- **show_ports**: afficher ou masquer les URLs de port dans la bannière de l'app. Désactiver quand vous n'utilisez qu'Ingress.
+- **server_port**: port d'écoute (défaut **3000**). Garder 3000 pour l'Ingress et le watchdog. Le port **3000/tcp** est exposé dans le manifest (onglet **Information** de l'app).
 
 ### Réinitialiser les options par défaut
 
@@ -78,7 +77,8 @@ Aucun bouton dans l'UI. Pour remettre les valeurs par défaut : **désinstaller*
   **Sans désactiver le mode protégé, l’app ne peut pas utiliser NET_RAW/NET_ADMIN** : le Supervisor refuse ces droits tant que la protection est activée. Il faut donc **désactiver** le mode protégé pour que MynetworK puisse démarrer et faire le scan réseau.  
   **Intégration dans l’app** (conforme [App security → API role](https://developers.home-assistant.io/docs/apps/security#api-role)) : l’app déclare `hassio_api: true` et `hassio_role: admin`. Le rôle **admin** est le seul qui permet de désactiver/activer le mode protégé pour cette app (*« That is the only one they can disable/enable the App protection mode »*). Aucune autre clé dans `config.yaml` n’est nécessaire ; l’état protégé on/off est géré par le Supervisor (options de l’app).  
   **Où désactiver** : **Paramètres** → **Apps** → **MynetworK** → onglet **Information** ou **Configuration** → section **Sécurité** → toggle **Protected mode** sur **OFF**.  
-  **Si le toggle n’apparaît pas** : (1) Mettez à jour l’app (dernière version) pour que le Supervisor relise le manifest. (2) Sinon, via l’API Supervisor : `POST http://supervisor/addons/<slug>/security` avec le body `{"protected": false}` (voir [API Supervisor](https://developers.home-assistant.io/docs/api/supervisor) pour le slug et le token).
+  **Si le toggle n’apparaît pas** : (1) Mettez à jour l’app (dernière version) pour que le Supervisor relise le manifest. (2) Sinon, via l’API Supervisor : `POST http://supervisor/addons/<slug>/security` avec le body `{"protected": false}` (voir [API Supervisor](https://developers.home-assistant.io/docs/api/supervisor) pour le slug et le token).  
+**Comparaison [Dozzle Agent](https://github.com/Erreur32/homeassistant-dozzle-agent)** : Dozzle a `docker_api: true` ; le frontend HA affiche alors souvent le toggle. MynetworK n’utilise pas `docker_api` (sécurité), donc le toggle peut ne pas s’afficher ; contournement = API ci-dessus.
 
 ## Troubleshooting
 

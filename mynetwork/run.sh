@@ -12,7 +12,6 @@ OPTS="/data/options.json"
 # Defaults
 LOG_LEVEL="info"
 SERVER_PORT="3000"
-SHOW_PORTS="true"
 JWT_SECRET=""
 DEFAULT_ADMIN_USERNAME="admin"
 DEFAULT_ADMIN_PASSWORD=""
@@ -25,7 +24,6 @@ if [ -f "$OPTS" ]; then
     LOG_LEVEL="$(jq -r '.log_level // "info"' "$OPTS" 2>/dev/null)" || true
     # Network: support nested .network.server_port and legacy top-level .server_port
     SERVER_PORT="$(jq -r '(.network.server_port // .server_port // 3000) | tostring' "$OPTS" 2>/dev/null)" || true
-    SHOW_PORTS="$(jq -r '(.network.show_ports // true) | if . == true or . == "true" then "true" else "false" end' "$OPTS" 2>/dev/null)" || true
     JWT_SECRET="$(jq -r '.jwt_secret // ""' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_USERNAME="$(jq -r '.default_admin_username // "admin"' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_PASSWORD="$(jq -r '.default_admin_password // ""' "$OPTS" 2>/dev/null)" || true
@@ -52,8 +50,6 @@ export DOCKER=true
 # The app receives X-Ingress-Path on each request; upstream MynetworK should use it or relative paths.
 export ADDON_INGRESS=1
 export INGRESS_MODE=1
-# Show ports in app banner (network.show_ports); when false, app can hide port display.
-export SHOW_PORTS="${SHOW_PORTS:-true}"
 
 # Persistence: use /data (Supervisor mount), not /app/data, so /app from image is untouched
 export DATABASE_PATH="/data/dashboard.db"
@@ -113,7 +109,7 @@ fi
 # Debug mode: dump env and paths so add-on Log tab shows why startup might fail
 if [ "$LOG_LEVEL" = "debug" ]; then
   log "--- DEBUG env ---"
-  log "PORT=$PORT SHOW_PORTS=$SHOW_PORTS ADDON_INGRESS=$ADDON_INGRESS NODE_ENV=$NODE_ENV DOCKER=$DOCKER"
+  log "PORT=$PORT ADDON_INGRESS=$ADDON_INGRESS NODE_ENV=$NODE_ENV DOCKER=$DOCKER"
   log "DATABASE_PATH=$DATABASE_PATH CONFIG_FILE_PATH=$CONFIG_FILE_PATH FREEBOX_TOKEN_FILE=$FREEBOX_TOKEN_FILE"
   log "JWT_SECRET set=$([ -n "$JWT_SECRET" ] && echo yes || echo no) DEFAULT_ADMIN_USERNAME=$DEFAULT_ADMIN_USERNAME"
   log "LOG_LEVEL=$LOG_LEVEL"

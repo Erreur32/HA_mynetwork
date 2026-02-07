@@ -16,11 +16,8 @@ configuration:
     description: "Optionnel (ex: mafreebox.freebox.fr)"
   network:
     name: Réseau
-    description: Port et affichage. Le port actuel utilisé est indiqué dans l'onglet Information de l'app si le port est exposé.
+    description: Port d'écoute. Le port exposé (3000/tcp) est affiché dans l'onglet Information de l'app.
     fields:
       server_port:
         name: Port du serveur
-        description: Port d'écoute (défaut 3000). Garder 3000 pour Ingress et le watchdog. HA affiche le port hôte dans l'onglet Info si vous exposez le port.
-      show_ports:
-        name: Afficher les ports dans l'app
-        description: Si activé, la bannière de l'app peut afficher les URL des ports. Désactiver pour masquer (ex. quand on utilise uniquement Ingress).
+        description: Port d'écoute (défaut 3000). Garder 3000 pour Ingress et le watchdog. Le port 3000 est exposé dans config (onglet Info).

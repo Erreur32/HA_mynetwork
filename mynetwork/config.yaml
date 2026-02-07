@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.1.3"
+version: "0.1.4"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
@@ -27,8 +27,8 @@ panel_admin: false
 
 watchdog: "http://[HOST]:[PORT:3000]/api/health"
 
-# Expose port so Supervisor UI may show the "Protected mode" toggle (like Dozzle Agent which has ports + docker_api).
-# Optional: disable in add-on Network tab if you only use Ingress. Port is same as ingress_port.
+# Port exposé (comme Dozzle Agent). Dozzle a en plus docker_api: true, ce qui peut faire afficher le toggle
+# "Mode protégé" dans l'UI ; on ne met pas docker_api (sécurité). Si le toggle n'apparaît pas, voir DOCS (API).
 ports:
   3000/tcp: 3000
 ports_description:
@@ -47,7 +47,7 @@ map:
     path: /data
     read_only: false
 
-# Options: two categories — general (auth, logs, Freebox) and network (port, show ports).
+# Options: two categories — general (auth, logs, Freebox) and network (server port only).
 # Reset to defaults: remove add-on and reinstall, or clear options via Supervisor API (see DOCS).
 options:
   log_level: "info"
@@ -58,7 +58,6 @@ options:
   freebox_host: ""
   network:
     server_port: 3000
-    show_ports: true
 schema:
   log_level: list(debug|info|warning|error)
   jwt_secret: password
@@ -68,4 +67,3 @@ schema:
   freebox_host: str?
   network:
     server_port: port
-    show_ports: bool

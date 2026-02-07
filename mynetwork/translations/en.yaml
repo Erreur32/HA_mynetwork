@@ -16,11 +16,8 @@ configuration:
     description: Optional (e.g. mafreebox.freebox.fr)
   network:
     name: Network
-    description: Port and display options. Current port is shown in the add-on Information tab when exposed.
+    description: Listen port. Exposed port (3000/tcp) is shown in the add-on Information tab.
     fields:
       server_port:
         name: Server port
-        description: Port the app listens on (default 3000). Keep 3000 for Ingress and watchdog. HA shows the assigned host port in the add-on Info tab if you expose the port.
-      show_ports:
-        name: Show ports in app
-        description: When enabled, the app banner can display port URLs. Disable to hide (e.g. when using Ingress only).
+        description: Port the app listens on (default 3000). Keep 3000 for Ingress and watchdog. Port 3000 is exposed in config (Info tab).
