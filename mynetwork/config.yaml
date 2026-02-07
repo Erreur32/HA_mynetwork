@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.0.4"
+version: "0.0.5"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
@@ -19,6 +19,12 @@ panel_icon: "mdi:network"
 panel_admin: false
 
 watchdog: "http://[HOST]:[PORT:3000]/api/health"
+
+# Required so the "Protected mode" toggle appears in the add-on Configuration (Security).
+# User must turn Protected mode OFF for the add-on to start (needs NET_RAW/NET_ADMIN).
+# See: https://developers.home-assistant.io/docs/add-ons/security
+hassio_api: true
+hassio_role: admin
 
 privileged:
   - NET_RAW
