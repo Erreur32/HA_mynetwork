@@ -4,6 +4,37 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.15]
+
+### Added
+
+- **Upstream version scraping** : `scripts/update-version.sh` récupère automatiquement la dernière version de [MynetworK](https://github.com/Erreur32/MynetworK) depuis le CHANGELOG GitHub (via `curl`) et met à jour les badges upstream dans `README.md` et `mynetwork/README.md`.
+- **Badge upstream MynetworK** : affiché dans `README.md` (root) et `mynetwork/README.md` avec la version courante de l'app upstream (ex. `v0.7.3`).
+- **Texte "Based on MynetworK"** : ajout de `**Based on MynetworK:** \`vX.Y.Z\`` dans le README root pour indiquer la version de l'app embarquée.
+
+### Changed
+
+- **scripts/update-version.sh** : URLs upstream centralisées dans des variables (pas de `curl` avec URL en dur). Affiche les deux versions (add-on + upstream) quand lancé sans argument. Fail gracieux si pas d'internet.
+- **README.md** : badge `[mynetwork-shield]` maintenant affiché (était défini mais jamais utilisé).
+- **mynetwork/README.md** : badge upstream passe de "official" à la version réelle (ex. `MynetworK-v0.7.3-orange`).
+
+---
+
+## [0.1.14]
+
+### Added
+
+- **Version dans DOCS.md / DOCS_FR.md** : ajout d'une ligne `**Version:** \`X.Y.Z\`` (EN) et `**Version :** \`X.Y.Z\`` (FR) pour que le script de bump mette à jour ces fichiers.
+- **DOCS_FR.md** : ajouté dans la section "Repository Structure" du README root.
+
+### Changed
+
+- **scripts/update-version.sh** : réécriture complète du script (anciennement `bump-version.sh` à la racine). Corrige `REPO_ROOT` (qui pointait sur `scripts/` au lieu de la racine), supprime l'étape Dockerfile (utilise `:latest`), ajoute une fonction `sedi()` portable macOS/Linux, regex générique pour `mynetwork/README.md` (rattrape les badges désynchronisés), vérification `NEW == CURRENT`.
+- **README.md** : section "Repository Structure" mise à jour (`scripts/update-version.sh` au lieu de `bump-version.sh`, ajout `DOCS_FR.md`). Versions synchronisées à `0.1.14` dans tous les badges et liens.
+- **mynetwork/README.md** : badge version synchronisé (était resté à `0.1.2`).
+
+---
+
 ## [0.1.13]
 
 ### Fixed

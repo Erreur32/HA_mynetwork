@@ -18,7 +18,7 @@
   <img src="https://raw.githubusercontent.com/Erreur32/MynetworK/main/img-capture/ubiquiti-networks.svg" alt="Ubiquiti Unifi" height="32" />
 </p>
 
-**A multi-source network dashboard for Freebox, UniFi and your networks — as a Home Assistant add-on (Ingress only).**
+**A multi-source network dashboard for Freebox, UniFi + Network Scanner and your networks  as a Home Assistant add-on (Ingress only).**
 
 [Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](mynetwork/DOCS.md)
 
@@ -98,8 +98,8 @@
 
 ## Documentation
 
-- **Full add-on documentation**: [DOCS.md](DOCS.md) — installation, persistence, security, troubleshooting, AppArmor.
-- **Upstream app**: [MynetworK](https://github.com/Erreur32/MynetworK) — features, Docker, development.
+- **Full add-on documentation**: [DOCS.md](DOCS.md)  installation, persistence, security, troubleshooting, AppArmor.
+- **Upstream app**: [MynetworK](https://github.com/Erreur32/MynetworK)   features, Docker, development.
 
 ---
 
