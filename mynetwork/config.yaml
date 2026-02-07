@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.1.6"
+version: "0.1.8"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
@@ -27,12 +27,8 @@ panel_admin: false
 
 watchdog: "http://[HOST]:[PORT:3000]/api/health"
 
-# Port exposé (comme Dozzle Agent). Dozzle a en plus docker_api: true, ce qui peut faire afficher le toggle
-# "Mode protégé" dans l'UI ; on ne met pas docker_api (sécurité). Si le toggle n'apparaît pas, voir DOCS (API).
-ports:
-  3000/tcp: 3000
-ports_description:
-  3000/tcp: "Web UI / API (same as Ingress; disable protection for NET_RAW/NET_ADMIN)"
+# Ingress only — no exposed port (all traffic goes through the Supervisor reverse proxy).
+# ports: section removed to avoid a confusing duplicate "Réseau" block in the UI.
 
 privileged:
   - NET_RAW

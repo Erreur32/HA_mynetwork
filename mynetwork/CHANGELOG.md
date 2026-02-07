@@ -4,6 +4,23 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7]
+
+### Fixed
+
+- **su-exec: setgroups: Operation not permitted** : `ENTRYPOINT []` dans le Dockerfile pour écraser l'entrypoint de l'image de base (`docker-entrypoint.sh` utilise `su-exec`). Le bloc add-on (`ADDON_INGRESS=1`) dans `run.sh` est maintenant exécuté **avant** le fallback `docker-entrypoint.sh`.
+- **Duplicate "Réseau" dans l'UI** : suppression de `ports:` / `ports_description:` dans `config.yaml` (Ingress only, pas de port exposé sur l'hôte).
+- **Warning `Unknown option 'show_ports'`** : option supprimée du schéma (déjà retirée des options, restait dans les données sauvegardées).
+
+### Changed
+
+- **Dockerfile** : ajout `ENTRYPOINT []` pour garantir que `/run.sh` est le seul point d'entrée (pas de `su-exec` en contexte add-on).
+- **run.sh** : le bypass add-on (lancement direct sans `su-exec` / `docker-entrypoint.sh`) est maintenant **avant** le fallback entrypoint upstream.
+- **config.yaml** : `ports:` et `ports_description:` supprimés (Ingress only).
+- **DOCS.md** : réécriture complète — token Supervisor (variable d'environnement uniquement), désactivation du mode protégé via Long-Lived Access Token + proxy API HA Core, ce qui ne marche pas (403 avec SUPERVISOR_TOKEN).
+
+---
+
 ## [0.1.1]
 
 ### Added

@@ -1,34 +1,89 @@
-# MynetworK — dev / dépannage
+# MynetworK — Home Assistant App
 
-## Tokens — résumé
+**Multi-Source Network Dashboard** for Home Assistant.
 
-### SUPERVISOR_TOKEN (printenv)
+A unified dashboard to manage and monitor your network devices:
 
-`printenv SUPERVISOR_TOKEN` depuis Terminal & SSH ou le CLI HA affiche le **token interne Supervisor**. Ce token est utilisable **uniquement pour les appels internes** entre add-ons et le Supervisor (`http://supervisor/...`). Il ne fonctionne **PAS** pour l'endpoint `/addons/<slug>/security` car Terminal & SSH n'a pas le rôle `admin` → **403 Forbidden**.
+- **Freebox** — full management (Ultra, Delta, Pop): WiFi, LAN, downloads, VMs, TV, phone.
+- **UniFi Controller** — AP monitoring, clients, traffic, multi-site (local + cloud).
+- **Network Scan** — automatic device discovery (IP, MAC, hostname, vendor via Wireshark DB).
 
-### Long-Lived Access Token (token utilisateur HA)
+### Features
 
-C'est le token qu'il faut pour désactiver le mode protégé. Il passe par le **proxy API de Home Assistant Core** qui, lui, a les droits admin sur le Supervisor.
+- JWT authentication (admin, user, viewer)
+- Modular plugin system
+- Real-time dashboard (charts, stats, WebSocket)
+- Full activity logging
+- User management (admin)
+- Internationalization (EN / FR)
 
-Création : **http://192.168.32.200:8123/profile** → section **Long-Lived Access Tokens** → Créer un token → copier la valeur.
+---
 
-## Désactiver le mode protégé (privileged NET_RAW / NET_ADMIN)
+## Installation
 
-### Méthode 1 — UI (si le toggle existe)
+1. **Settings** → **Apps** → **App store** → **⋮** menu → **Repositories**.
+2. Add: `https://github.com/Erreur32/HA_mynetwork`
+3. Install **MynetworK** from the store.
+4. Configure options (see below).
+5. **Start** the app → open via the **MynetworK** panel in the sidebar.
 
-Paramètres → Apps → MynetworK → onglet Information ou Configuration → section Sécurité → **Protected mode OFF**.
+## Configuration
 
-### Méthode 2 — API via le proxy HA Core (fonctionne toujours)
+### General options
+
+| Option | Description | Default |
+|---|---|---|
+| **log_level** | Log level (debug, info, warning, error) | `info` |
+| **jwt_secret** | JWT secret to secure sessions (required in production) | empty |
+| **default_admin_username** | Initial admin username | `admin` |
+| **default_admin_password** | Initial admin password | empty |
+| **default_admin_email** | Initial admin email | `admin@localhost` |
+| **freebox_host** | Freebox host (optional) | empty |
+
+### Network
+
+| Option | Description | Default |
+|---|---|---|
+| **server_port** | Internal listening port | `3000` |
+
+> Keep **3000** for Ingress and watchdog. The app is accessible **only via Ingress** (HA sidebar), no port is exposed on the host.
+
+### First launch
+
+1. The app automatically creates an **admin** account using the credentials from the options.
+2. **Change the password** immediately after first login.
+3. Configure plugins (Freebox, UniFi, Network Scan) in the MynetworK UI → **Plugins**.
+
+---
+
+## Disable protected mode (NET_RAW / NET_ADMIN)
+
+MynetworK requires **NET_RAW** and **NET_ADMIN** for network scanning. The Supervisor blocks these capabilities while **protected mode** is enabled (default).
+
+### Method 1 — UI
+
+Settings → Apps → MynetworK → Information or Configuration tab → Security section → **Protected mode OFF**.
+
+### Method 2 — API (if the toggle does not appear)
+
+1. Create a **Long-Lived Access Token**: `http://YOUR_HA:8123/profile` → tokens section → create.
+2. Run (from anywhere):
 
 ```bash
 curl -X POST \
-  -H "Authorization: Bearer LONG_LIVED_TOKEN" \
+  -H "Authorization: Bearer YOUR_LONG_LIVED_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"protected": false}' \
-  http://192.168.32.200:8123/api/hassio/addons/local_mynetwork/security
+  http://YOUR_HA:8123/api/hassio/addons/local_mynetwork/security
 ```
 
-Remplacer `LONG_LIVED_TOKEN` par le token créé dans le profil HA. Adapter le slug (`local_mynetwork`) si besoin.
+3. **Restart** the MynetworK app.
 
-Puis **redémarrer** l'app MynetworK.
+---
 
+## Troubleshooting
+
+- **Blank page via Ingress**: the app must use relative URLs. The wrapper exports `ADDON_INGRESS=1` and `INGRESS_MODE=1`.
+- **su-exec: setgroups: Operation not permitted**: fixed since v0.1.7 (`ENTRYPOINT []` in the Dockerfile).
+- **App does not start**: check that protected mode is disabled (see above).
+- **Incomplete network scan**: enable `host_network: true` in `config.yaml` (rebuild required).
