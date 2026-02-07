@@ -42,7 +42,7 @@ This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
 **Current version:** `0.1.13` · **Compatible with Home Assistant 2025.x / 2026.x** (Supervisor, Settings → Apps)
 
-[MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress only** — no exposed port, no sensors; the UI is available from the sidebar panel.
+[MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress** and  exposed port, no sensors; the UI is available from the sidebar panel.
 
  
 
