@@ -29,7 +29,8 @@ Dashboard unifié pour gérer et surveiller vos équipements réseau :
 4. Configurer les options (voir ci-dessous).
 5. **Démarrer** l'app → ouvrir via le panneau **MynetworK** dans la sidebar.
 
-> L'app est accessible **uniquement via Ingress** (sidebar HA). Aucune configuration de port nécessaire — tout est géré par le Supervisor.
+> L'app est disponible via **Ingress** (sidebar HA) et en **accès direct** sur `http://VOTRE_HA:7505`.
+> Si Ingress affiche une page blanche (l'upstream ne supporte pas encore les URLs relatives), utiliser le port direct.
 
 ## Configuration
 

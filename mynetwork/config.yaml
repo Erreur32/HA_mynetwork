@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.1.9"
+version: "0.1.10"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
@@ -27,8 +27,13 @@ panel_admin: false
 
 watchdog: "http://[HOST]:[PORT:3000]/api/health"
 
-# Ingress only — no exposed port (all traffic goes through the Supervisor reverse proxy).
-# ports: section removed to avoid a confusing duplicate "Réseau" block in the UI.
+# Direct access port (in addition to Ingress). Ingress may show a blank page until the upstream
+# MynetworK app supports relative URLs / X-Ingress-Path. Use this port for direct browser access:
+# http://homeassistant:7505
+ports:
+  3000/tcp: 7505
+ports_description:
+  3000/tcp: "Web UI (direct access — use this if Ingress shows a blank page)"
 
 privileged:
   - NET_RAW

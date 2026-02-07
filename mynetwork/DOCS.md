@@ -29,7 +29,8 @@ A unified dashboard to manage and monitor your network devices:
 4. Configure options (see below).
 5. **Start** the app → open via the **MynetworK** panel in the sidebar.
 
-> The app is accessible **only via Ingress** (HA sidebar). No port configuration needed — everything is managed by the Supervisor.
+> The app is available via **Ingress** (HA sidebar) and via **direct access** at `http://YOUR_HA:7505`.
+> If Ingress shows a blank page (upstream does not yet support relative URLs), use the direct port instead.
 
 ## Configuration
 
