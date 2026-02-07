@@ -1,7 +1,7 @@
-ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.5.6
+ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.0.1
 FROM ${BUILD_FROM}
 
-# jq pour lire /data/options.json (Supervisor)
+# jq to read /app/data/options.json (Supervisor)
 RUN apk add --no-cache jq
 
 COPY run.sh /run.sh

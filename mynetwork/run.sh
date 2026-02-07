@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-OPTS="/data/options.json"
+OPTS="/app/data/options.json"
 
 # Defaults
 LOG_LEVEL="info"
@@ -24,7 +24,7 @@ export PORT=3000
 export NODE_ENV=production
 export DOCKER=true
 
-# Persistance (IMPORTANT : /app/data)
+# Persistence (IMPORTANT: /app/data)
 export DATABASE_PATH="/app/data/dashboard.db"
 export CONFIG_FILE_PATH="/app/data/mynetwork.conf"
 export FREEBOX_TOKEN_FILE="/app/data/freebox_token.json"
@@ -35,11 +35,11 @@ export DEFAULT_ADMIN_USERNAME
 export DEFAULT_ADMIN_PASSWORD
 export DEFAULT_ADMIN_EMAIL
 
-# Optionnel
+# Optional
 [ -n "$FREEBOX_HOST" ] && export FREEBOX_HOST
 
-# Ingress : ne pas set PUBLIC_URL par défaut
+# Ingress: do not set PUBLIC_URL by default
 unset PUBLIC_URL || true
 
-# Lancement upstream (gère chown /app/data + su-exec node)
+# Start upstream (handles chown /app/data + su-exec node)
 exec /app/docker-entrypoint.sh node_modules/.bin/tsx server/index.ts

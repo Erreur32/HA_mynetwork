@@ -1,0 +1,30 @@
+#include <tunables/global>
+
+profile mynetwork flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  file,
+  signal (send) set=(kill,term,int,hup,cont),
+
+  # Network scan (aligned with privileged: NET_RAW, NET_ADMIN in config.yaml)
+  capability net_raw,
+  capability net_admin,
+
+  # Wrapper script and jq (reads /app/data/options.json)
+  /run.sh ix,
+  /usr/bin/jq ix,
+  /bin/** ix,
+  /usr/bin/** ix,
+
+  # Supervisor data volume (options.json, database, config)
+  /app/data/** rw,
+
+  # Upstream app: entrypoint and Node/tsx
+  /app/docker-entrypoint.sh ix,
+  /app/node_modules/** ix,
+  /app/server/** r,
+  /app/** r,
+
+  /dev/tty rw,
+  /tmp/** rwk,
+}
