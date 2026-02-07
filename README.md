@@ -189,7 +189,7 @@ MIT License — see the [LICENSE][license] file for details.
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
 [release-shield]: https://img.shields.io/badge/version-v0.1.2-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.2
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.13
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
 [mynetwork-shield]: https://img.shields.io/badge/based%20on-MynetworK-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
