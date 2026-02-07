@@ -130,6 +130,13 @@ if [ -x "/app/docker-entrypoint.sh" ]; then
   exec /app/docker-entrypoint.sh "$TSX_CMD" "server/index.ts"
 fi
 
+# In add-on context, do not use su-exec: setgroups() is often denied (AppArmor / restricted container),
+# causing "su-exec: setgroups: Operation not permitted". Run the process directly.
+if [ -n "$ADDON_INGRESS" ] && [ "$ADDON_INGRESS" = "1" ]; then
+  log "Starting directly (add-on, no su-exec): $TSX_CMD $SERVER_FILE"
+  exec "$TSX_CMD" "$SERVER_FILE"
+fi
+
 if command -v su-exec >/dev/null 2>&1 && id node >/dev/null 2>&1; then
   log "Starting via su-exec node $TSX_CMD $SERVER_FILE"
   exec su-exec node "$TSX_CMD" "$SERVER_FILE"

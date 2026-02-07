@@ -40,7 +40,7 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.1.1` · **Compatible with Home Assistant 2025.x / 2026.x** (Supervisor, Settings → Apps)
+**Current version:** `0.1.2` · **Compatible with Home Assistant 2025.x / 2026.x** (Supervisor, Settings → Apps)
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress only** — no exposed port, no sensors; the UI is available from the sidebar panel.
 
@@ -188,8 +188,8 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.1.1-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.1
+[release-shield]: https://img.shields.io/badge/version-v0.1.2-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.2
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
 [mynetwork-shield]: https://img.shields.io/badge/based%20on-MynetworK-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
