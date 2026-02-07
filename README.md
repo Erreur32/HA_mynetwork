@@ -28,7 +28,7 @@
   <img src="https://raw.githubusercontent.com/Erreur32/MynetworK/main/img-capture/ubiquiti-networks.svg" alt="Ubiquiti Unifi" height="32" />
 </p>
 
-**A multi-source network dashboard for Freebox, UniFi and your networks — as a Home Assistant add-on (Ingress only).**
+**A multi-source network dashboard for Freebox, UniFi and your networks  as a Home Assistant add-on (Ingress).**
 
 [Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](mynetwork/DOCS.md)
 
@@ -40,7 +40,10 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.1.13` · **Compatible with Home Assistant 2025.x / 2026.x** (Supervisor, Settings → Apps)
+**Current version:** `0.1.13` 
+
+
+
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs MynetworK inside Home Assistant with **Ingress** and  exposed port, no sensors; the UI is available from the sidebar panel.
 
