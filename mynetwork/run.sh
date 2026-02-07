@@ -11,6 +11,7 @@ OPTS="/data/options.json"
 
 # Defaults
 LOG_LEVEL="info"
+# Port is fixed at 3000 (managed by Supervisor via ingress_port, not user-configurable)
 SERVER_PORT="3000"
 JWT_SECRET=""
 DEFAULT_ADMIN_USERNAME="admin"
@@ -22,8 +23,7 @@ if [ -f "$OPTS" ]; then
   log "Reading options from $OPTS"
   if command -v jq >/dev/null 2>&1; then
     LOG_LEVEL="$(jq -r '.log_level // "info"' "$OPTS" 2>/dev/null)" || true
-    # Network: support nested .network.server_port and legacy top-level .server_port
-    SERVER_PORT="$(jq -r '(.network.server_port // .server_port // 3000) | tostring' "$OPTS" 2>/dev/null)" || true
+    # Port is fixed (ingress_port: 3000 in config.yaml); ignore any user value
     JWT_SECRET="$(jq -r '.jwt_secret // ""' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_USERNAME="$(jq -r '.default_admin_username // "admin"' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_PASSWORD="$(jq -r '.default_admin_password // ""' "$OPTS" 2>/dev/null)" || true

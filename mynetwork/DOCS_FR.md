@@ -1,5 +1,7 @@
 # MynetworK — App Home Assistant
 
+![MynetworK](icon.png)
+
 **Dashboard Réseau Multi-Sources** pour Home Assistant.
 
 Dashboard unifié pour gérer et surveiller vos équipements réseau :
@@ -27,9 +29,9 @@ Dashboard unifié pour gérer et surveiller vos équipements réseau :
 4. Configurer les options (voir ci-dessous).
 5. **Démarrer** l'app → ouvrir via le panneau **MynetworK** dans la sidebar.
 
-## Configuration
+> L'app est accessible **uniquement via Ingress** (sidebar HA). Aucune configuration de port nécessaire — tout est géré par le Supervisor.
 
-### Options générales
+## Configuration
 
 | Option | Description | Défaut |
 |---|---|---|
@@ -39,14 +41,6 @@ Dashboard unifié pour gérer et surveiller vos équipements réseau :
 | **default_admin_password** | Mot de passe admin initial | vide |
 | **default_admin_email** | Email admin initial | `admin@localhost` |
 | **freebox_host** | Hôte Freebox (optionnel) | vide |
-
-### Réseau
-
-| Option | Description | Défaut |
-|---|---|---|
-| **server_port** | Port d'écoute interne | `3000` |
-
-> Garder **3000** pour l'Ingress et le watchdog. L'app est accessible **uniquement via Ingress** (sidebar HA), pas de port exposé sur l'hôte.
 
 ### Premier lancement
 
@@ -87,3 +81,10 @@ curl -X POST \
 - **su-exec: setgroups: Operation not permitted** : corrigé depuis v0.1.7 (`ENTRYPOINT []` dans le Dockerfile).
 - **App ne démarre pas** : vérifier que le mode protégé est désactivé (voir ci-dessus).
 - **Scan réseau incomplet** : activer `host_network: true` dans `config.yaml` (rebuild nécessaire).
+
+---
+
+## Icône et logo
+
+- **icon.png** — icône de l'app (PNG, 128x128), affichée dans le store HA et la sidebar.
+- **logo_mynetwork.svg** — logo SVG complet (fichier source de l'icône).

@@ -1,5 +1,7 @@
 # MynetworK — Home Assistant App
 
+![MynetworK](icon.png)
+
 **Multi-Source Network Dashboard** for Home Assistant.
 
 A unified dashboard to manage and monitor your network devices:
@@ -27,9 +29,9 @@ A unified dashboard to manage and monitor your network devices:
 4. Configure options (see below).
 5. **Start** the app → open via the **MynetworK** panel in the sidebar.
 
-## Configuration
+> The app is accessible **only via Ingress** (HA sidebar). No port configuration needed — everything is managed by the Supervisor.
 
-### General options
+## Configuration
 
 | Option | Description | Default |
 |---|---|---|
@@ -39,14 +41,6 @@ A unified dashboard to manage and monitor your network devices:
 | **default_admin_password** | Initial admin password | empty |
 | **default_admin_email** | Initial admin email | `admin@localhost` |
 | **freebox_host** | Freebox host (optional) | empty |
-
-### Network
-
-| Option | Description | Default |
-|---|---|---|
-| **server_port** | Internal listening port | `3000` |
-
-> Keep **3000** for Ingress and watchdog. The app is accessible **only via Ingress** (HA sidebar), no port is exposed on the host.
 
 ### First launch
 
@@ -87,3 +81,10 @@ curl -X POST \
 - **su-exec: setgroups: Operation not permitted**: fixed since v0.1.7 (`ENTRYPOINT []` in the Dockerfile).
 - **App does not start**: check that protected mode is disabled (see above).
 - **Incomplete network scan**: enable `host_network: true` in `config.yaml` (rebuild required).
+
+---
+
+## Icon and logo
+
+- **icon.png** — app icon (PNG, 128x128), displayed in the HA app store and sidebar.
+- **logo_mynetwork.svg** — full SVG logo (source file for the icon).

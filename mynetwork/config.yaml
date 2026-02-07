@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.1.8"
+version: "0.1.9"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
@@ -43,7 +43,7 @@ map:
     path: /data
     read_only: false
 
-# Options: two categories — general (auth, logs, Freebox) and network (server port only).
+# Options: general (auth, logs, Freebox). Port is fixed at 3000 (ingress_port), managed by Supervisor.
 # Reset to defaults: remove add-on and reinstall, or clear options via Supervisor API (see DOCS).
 options:
   log_level: "info"
@@ -52,8 +52,6 @@ options:
   default_admin_password: ""
   default_admin_email: "admin@localhost"
   freebox_host: ""
-  network:
-    server_port: 3000
 schema:
   log_level: list(debug|info|warning|error)
   jwt_secret: password
@@ -61,5 +59,3 @@ schema:
   default_admin_password: password
   default_admin_email: str
   freebox_host: str?
-  network:
-    server_port: port

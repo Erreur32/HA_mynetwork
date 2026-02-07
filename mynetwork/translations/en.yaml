@@ -14,10 +14,3 @@ configuration:
   freebox_host:
     name: Freebox host
     description: Optional (e.g. mafreebox.freebox.fr)
-  network:
-    name: Network
-    description: Listen port. Exposed port (3000/tcp) is shown in the add-on Information tab.
-    fields:
-      server_port:
-        name: Server port
-        description: Port the app listens on (default 3000). Keep 3000 for Ingress and watchdog. Port 3000 is exposed in config (Info tab).

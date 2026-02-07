@@ -14,10 +14,3 @@ configuration:
   freebox_host:
     name: Freebox host
     description: "Optionnel (ex: mafreebox.freebox.fr)"
-  network:
-    name: Réseau
-    description: Port d'écoute. Le port exposé (3000/tcp) est affiché dans l'onglet Information de l'app.
-    fields:
-      server_port:
-        name: Port du serveur
-        description: Port d'écoute (défaut 3000). Garder 3000 pour Ingress et le watchdog. Le port 3000 est exposé dans config (onglet Info).
