@@ -8,7 +8,7 @@
 
 ## Prerequisites
 
-- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.1.0` (amd64, aarch64, armv7).
+- MynetworK multi-arch image: `ghcr.io/erreur32/mynetwork:0.1.1` (amd64, aarch64, armv7).
 - Network capabilities: **NET_RAW** and **NET_ADMIN** are required for network scanning.
 
 ## Installation
@@ -46,13 +46,25 @@
 
 ## Configuration (options)
 
+Deux catégories : **options générales** (logs, auth, Freebox) et **Réseau** (port, affichage des ports).
+
+### Options générales
+
 - **log_level**: log level (debug, info, warning, error). When set to **debug**, the wrapper prints extra diagnostics (env, paths, `/app` and `/data` listing) and enables Node.js `--trace-warnings` and `--trace-uncaught` so crashes show full stack traces in the add-on Log tab. The MynetworK app’s own debug (HTTP request logs, etc.) is controlled inside the app (Administration → configuration) and stored in the database, not by this option.
-- **server_port**: port d'écoute du serveur (défaut **3000**). À garder à 3000 pour que l'Ingress et le watchdog fonctionnent (le manifest utilise ce port). Modifiable pour un build personnalisé où `ingress_port` et `ports` seraient alignés.
 - **jwt_secret**: JWT secret for session security — **recommended (required in production)**.
 - **default_admin_username**: initial admin account username.
 - **default_admin_password**: initial admin account password.
 - **default_admin_email**: initial admin account email.
 - **freebox_host**: optional (e.g. `mafreebox.freebox.fr`).
+
+### Réseau (Network)
+
+- **server_port**: port d'écoute (défaut **3000**). Garder 3000 pour l'Ingress et le watchdog. Le port hôte actuel est affiché par HA dans **Paramètres** → **Apps** → **MynetworK** → onglet **Information** si vous exposez le port.
+- **show_ports**: afficher ou masquer les URLs de port dans la bannière de l'app. Désactiver quand vous n'utilisez qu'Ingress.
+
+### Réinitialiser les options par défaut
+
+Aucun bouton dans l'UI. Pour remettre les valeurs par défaut : **désinstaller** l'app puis la **réinstaller**, ou utiliser l'API Supervisor (voir [API Supervisor](https://developers.home-assistant.io/docs/api/supervisor)).
 
 ## Security
 
@@ -70,6 +82,7 @@
 
 ## Troubleshooting
 
+- **Page blanche via Ingress** : L'app est servie par le reverse proxy HA (URL du type `https://votre-ha/api_ingress/...`). Si le frontend affiche des URL absolues vers `http://localhost:3000`, le navigateur bloque les requêtes (origine différente) et la page reste blanche. L'add-on exporte **ADDON_INGRESS=1** et **INGRESS_MODE=1** ; l'app MynetworK (upstream) doit utiliser des **URL relatives** ou lire l'en-tête **X-Ingress-Path** envoyé par le Supervisor sur chaque requête pour construire les liens. Vérifier dans le projet [MynetworK](https://github.com/Erreur32/MynetworK) que le frontend et l'API utilisent bien des chemins relatifs lorsque `INGRESS_MODE` ou `ADDON_INGRESS` est défini (ou en l'absence de PUBLIC_URL).
 - **App does not start / nothing starts**: This app uses **privileged** capabilities (`NET_RAW`, `NET_ADMIN`) for network scanning. In **Settings** → **Apps** → **MynetworK**, open **Information** or **Configuration**, then the **Security** section, and **disable "Protected mode"** (toggle off “Protect the app from having full system access”). With protected mode on, the Supervisor can block the required privileges and the container may fail to start. Disabling it allows the app to run; only do this for this app and on a trusted system.
 - **App starts then closes immediately** / **ERROR: Server file not found**: Open the add-on **Log** tab. If you see `Server file not found: /app/server/index.ts` and `List /app` shows only `data`, the Supervisor was mounting the add-on data over `/app/data` in a way that hid the image content. **Fix (v0.0.6+)**: the add-on now uses **map path: /data** so `/app` is never overwritten; update the add-on and reinstall (or rebuild). Other causes: (1) **Protected mode still on** — disable it in **Settings** → **Apps** → **MynetworK** → **Information** or **Configuration** → **Security**, then restart. (2) **Wrong base image** — the Dockerfile checks at build time that the base has `/app/server`; if the build fails, use image tag from [MynetworK releases](https://github.com/Erreur32/MynetworK/releases). (3) **App crash on startup** — set **log_level** to `debug` and restart for more detail.
 - **Incomplete network scan**: enable `host_network: true` in `config.yaml` (requires a modified add-on build), then test again. Warning: this gives the add-on access to the host network.

@@ -4,6 +4,22 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1]
+
+### Added
+
+- **Section Réseau (Network)** dans les options : `network.server_port`, `network.show_ports` (toggle afficher/masquer les ports dans la bannière). Traductions en/fr pour la catégorie Réseau.
+- **Variables Ingress** : `ADDON_INGRESS=1`, `INGRESS_MODE=1`, `SHOW_PORTS` exportées par run.sh pour que l'app MynetworK utilise des URL relatives (éviter la page blanche via Ingress).
+- **INSTRUCTIONS_MYNETWORK_UPSTREAM.md** : instructions pour adapter le repo MynetworK principal (URLs relatives, X-Ingress-Path).
+
+### Changed
+
+- **build.yaml** et **Dockerfile** : image de base MynetworK en `:latest` (chaque build add-on utilise la dernière release MynetworK ; version add-on indépendante de la version MynetworK).
+- **config.yaml** : options regroupées avec catégorie `network` (server_port, show_ports). Compatibilité ascendante : run.sh lit aussi l'ancien `server_port` en racine.
+- **DOCS.md** : deux catégories (Options générales, Réseau), réinitialisation des options, port actuel (onglet Information), troubleshooting « Page blanche via Ingress ».
+
+---
+
 ## [0.1.0]
 
 ### Added

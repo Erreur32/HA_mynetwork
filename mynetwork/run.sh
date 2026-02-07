@@ -12,6 +12,7 @@ OPTS="/data/options.json"
 # Defaults
 LOG_LEVEL="info"
 SERVER_PORT="3000"
+SHOW_PORTS="true"
 JWT_SECRET=""
 DEFAULT_ADMIN_USERNAME="admin"
 DEFAULT_ADMIN_PASSWORD=""
@@ -22,7 +23,9 @@ if [ -f "$OPTS" ]; then
   log "Reading options from $OPTS"
   if command -v jq >/dev/null 2>&1; then
     LOG_LEVEL="$(jq -r '.log_level // "info"' "$OPTS" 2>/dev/null)" || true
-    SERVER_PORT="$(jq -r '.server_port // 3000 | tostring' "$OPTS" 2>/dev/null)" || true
+    # Network: support nested .network.server_port and legacy top-level .server_port
+    SERVER_PORT="$(jq -r '(.network.server_port // .server_port // 3000) | tostring' "$OPTS" 2>/dev/null)" || true
+    SHOW_PORTS="$(jq -r '(.network.show_ports // true) | if . == true or . == "true" then "true" else "false" end' "$OPTS" 2>/dev/null)" || true
     JWT_SECRET="$(jq -r '.jwt_secret // ""' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_USERNAME="$(jq -r '.default_admin_username // "admin"' "$OPTS" 2>/dev/null)" || true
     DEFAULT_ADMIN_PASSWORD="$(jq -r '.default_admin_password // ""' "$OPTS" 2>/dev/null)" || true
@@ -39,11 +42,18 @@ fi
 LOG_LEVEL="$(echo "$LOG_LEVEL" | tr '[:upper:]' '[:lower:]')"
 export LOG_LEVEL
 
-# Port: from option server_port (default 3000). Ingress and watchdog use 3000 in the manifest; keep 3000 for standard use.
+# Port: from option network.server_port (default 3000). Ingress and watchdog use 3000 in the manifest; keep 3000 for standard use.
 export PORT="${SERVER_PORT:-3000}"
 export DASHBOARD_PORT="${SERVER_PORT:-3000}"
 export NODE_ENV=production
 export DOCKER=true
+
+# Ingress: app is reached via HA reverse proxy; use relative URLs so the frontend works (no localhost in banner).
+# The app receives X-Ingress-Path on each request; upstream MynetworK should use it or relative paths.
+export ADDON_INGRESS=1
+export INGRESS_MODE=1
+# Show ports in app banner (network.show_ports); when false, app can hide port display.
+export SHOW_PORTS="${SHOW_PORTS:-true}"
 
 # Persistence: use /data (Supervisor mount), not /app/data, so /app from image is untouched
 export DATABASE_PATH="/data/dashboard.db"
@@ -59,7 +69,7 @@ export DEFAULT_ADMIN_EMAIL
 # Optional
 [ -n "$FREEBOX_HOST" ] && export FREEBOX_HOST
 
-# Ingress: do not set PUBLIC_URL by default
+# Ingress: leave PUBLIC_URL unset so the app uses relative URLs (required for Ingress to avoid white page).
 unset PUBLIC_URL || true
 
 # When log_level=debug: more verbose Node (stack traces) and enable server WebSocket upgrade logging
@@ -103,7 +113,7 @@ fi
 # Debug mode: dump env and paths so add-on Log tab shows why startup might fail
 if [ "$LOG_LEVEL" = "debug" ]; then
   log "--- DEBUG env ---"
-  log "PORT=$PORT NODE_ENV=$NODE_ENV DOCKER=$DOCKER"
+  log "PORT=$PORT SHOW_PORTS=$SHOW_PORTS ADDON_INGRESS=$ADDON_INGRESS NODE_ENV=$NODE_ENV DOCKER=$DOCKER"
   log "DATABASE_PATH=$DATABASE_PATH CONFIG_FILE_PATH=$CONFIG_FILE_PATH FREEBOX_TOKEN_FILE=$FREEBOX_TOKEN_FILE"
   log "JWT_SECRET set=$([ -n "$JWT_SECRET" ] && echo yes || echo no) DEFAULT_ADMIN_USERNAME=$DEFAULT_ADMIN_USERNAME"
   log "LOG_LEVEL=$LOG_LEVEL"

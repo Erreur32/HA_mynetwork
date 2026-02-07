@@ -2,9 +2,6 @@ configuration:
   log_level:
     name: Niveau de logs
     description: debug/info/warning/error
-  server_port:
-    name: Port du serveur
-    description: Port d'écoute de l'app (défaut 3000). Garder 3000 pour Ingress et le watchdog.
   jwt_secret:
     name: Secret JWT
     description: Recommandé pour sécuriser les sessions
@@ -17,3 +14,13 @@ configuration:
   freebox_host:
     name: Freebox host
     description: "Optionnel (ex: mafreebox.freebox.fr)"
+  network:
+    name: Réseau
+    description: Port et affichage. Le port actuel utilisé est indiqué dans l'onglet Information de l'app si le port est exposé.
+    fields:
+      server_port:
+        name: Port du serveur
+        description: Port d'écoute (défaut 3000). Garder 3000 pour Ingress et le watchdog. HA affiche le port hôte dans l'onglet Info si vous exposez le port.
+      show_ports:
+        name: Afficher les ports dans l'app
+        description: Si activé, la bannière de l'app peut afficher les URL des ports. Désactiver pour masquer (ex. quand on utilise uniquement Ingress).

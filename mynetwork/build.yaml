@@ -1,6 +1,7 @@
 # Supervisor uses this to set BUILD_FROM when building the add-on.
 # Without it, Supervisor defaults to ghcr.io/home-assistant/amd64-base:latest (no MynetworK app).
+# MynetworK base image: :latest so each add-on build uses the current MynetworK release (version is independent of HA_mynetwork add-on version).
 build_from:
-  amd64: ghcr.io/erreur32/mynetwork:0.0.6
-  aarch64: ghcr.io/erreur32/mynetwork:0.0.6
-  armv7: ghcr.io/erreur32/mynetwork:0.0.6
+  amd64: ghcr.io/erreur32/mynetwork:latest
+  aarch64: ghcr.io/erreur32/mynetwork:latest
+  armv7: ghcr.io/erreur32/mynetwork:latest
