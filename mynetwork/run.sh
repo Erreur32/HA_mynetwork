@@ -121,16 +121,17 @@ if [ "$LOG_LEVEL" = "debug" ]; then
   log "--- DEBUG end ---"
 fi
 
+# In add-on context, do not use su-exec or docker-entrypoint.sh: setgroups() is denied
+# (AppArmor / restricted container) → "su-exec: setgroups: Operation not permitted".
+# Skip the upstream entrypoint entirely and run the process directly.
+if [ -n "$ADDON_INGRESS" ] && [ "$ADDON_INGRESS" = "1" ]; then
+  log "Starting directly (add-on, no su-exec, no docker-entrypoint.sh): $TSX_CMD $SERVER_FILE"
+  exec "$TSX_CMD" "$SERVER_FILE"
+fi
+
 if [ -x "/app/docker-entrypoint.sh" ]; then
   log "Starting via /app/docker-entrypoint.sh (tsx server/index.ts)"
   exec /app/docker-entrypoint.sh "$TSX_CMD" "server/index.ts"
-fi
-
-# In add-on context, do not use su-exec: setgroups() is often denied (AppArmor / restricted container),
-# causing "su-exec: setgroups: Operation not permitted". Run the process directly.
-if [ -n "$ADDON_INGRESS" ] && [ "$ADDON_INGRESS" = "1" ]; then
-  log "Starting directly (add-on, no su-exec): $TSX_CMD $SERVER_FILE"
-  exec "$TSX_CMD" "$SERVER_FILE"
 fi
 
 if command -v su-exec >/dev/null 2>&1 && id node >/dev/null 2>&1; then
