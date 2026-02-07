@@ -4,14 +4,23 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.0.6-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![Add-on version](https://img.shields.io/badge/version-0.0.7-blue)](https://github.com/Erreur32/HA_mynetwork)
 [![MynetworK upstream](https://img.shields.io/badge/MynetworK-official-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
 
+---
+
 <p align="center">
-  <strong>Unified Freebox + UniFi + network scan</strong> — in your Home Assistant sidebar.
+  <sub>Powered by</sub><br/>
+  <img src="https://raw.githubusercontent.com/Erreur32/MynetworK/main/img-capture/free-sas.png" alt="Freebox" height="32" />
+  &nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/Erreur32/MynetworK/main/img-capture/ubiquiti-networks.svg" alt="Ubiquiti Unifi" height="32" />
 </p>
+
+**A multi-source network dashboard for Freebox, UniFi and your networks — as a Home Assistant add-on (Ingress only).**
+
+[Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](mynetwork/DOCS.md)
 
 </div>
 
@@ -25,19 +34,31 @@
 - **UniFi** — Monitor and manage your UniFi infrastructure
 - **Network scan** — Discover devices (IP, MAC, hostnames, vendors) on your LAN
 - **Single panel** — Dashboard, plugins, users and logs in one interface  
+ 
+---
 
-Data (database, config, Freebox token) is stored in the add-on data volume and persists across restarts and updates.
+## Features
+
+✔️ Multi-source network dashboard (Freebox, UniFi, network scan)  
+✔️ Ingress only — no port exposure, UI in sidebar  
+✔️ Persistence in `/data` (database, config, tokens)  
+✔️ Watchdog and custom AppArmor profile  
+✔️ Compatible with Home Assistant 2025.x / 2026.x (Supervisor, Settings → Apps)  
+✔️ Options: `jwt_secret`, admin account, `freebox_host`, log level  
 
 ---
 
-## Quick Start
+## Installation
+ 
 
-1. Add the repository: **Settings** → **Apps** → **Repositories** → add `https://github.com/Erreur32/HA_mynetwork`
-2. **Refresh** the store, then **Install** the **MynetworK** add-on.
-3. Open the add-on **Configuration** tab:
-   - Set **jwt_secret** (required in production) and **default_admin_password**.
-   - In **Security**, **turn off "Protected mode"** so the add-on can use network capabilities (`NET_RAW`/`NET_ADMIN`) — otherwise it may not start.
-4. Click **Start**, then open **MynetworK** from the Home Assistant **sidebar** (Ingress panel).
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FErreur32%2FHA_mynetwork)
+
+1. Click the button above
+2. Click **ADD** and **RESTART** Home Assistant (if prompted)
+3. Go to **Settings** → **Apps** (or [Add-on Store](https://my.home-assistant.io/redirect/supervisor_store/))
+4. Search for **"MynetworK"**
+5. Click **Install**, then **Start**
+6. Open MynetworK from the **sidebar** (Ingress panel)
 
 ---
 

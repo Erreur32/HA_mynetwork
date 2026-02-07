@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.0.6
+ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.0.7
 FROM ${BUILD_FROM}
 
 # Fail build if base image is missing app (e.g. wrong tag or incomplete image)

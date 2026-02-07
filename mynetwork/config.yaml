@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.0.6"
+version: "0.0.7"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
