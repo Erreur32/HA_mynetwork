@@ -4,7 +4,7 @@
 
 **Dashboard Réseau Multi-Sources** pour Home Assistant.
 
-**Version :** `0.1.15`
+**Version :** `0.1.16`
 
 
 Dashboard unifié pour gérer et surveiller vos équipements réseau :
