@@ -20,6 +20,8 @@
   Unified Freebox + UniFi management in Home Assistant.
 </p>
 
+![Screen dashboard](https://github.com/Erreur32/MynetworK/raw/main/img-capture/dashboard.png?raw=true)
+
 ---
 
 <p align="center">
