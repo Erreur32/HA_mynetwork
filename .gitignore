@@ -1,6 +1,6 @@
 # Internal / non-essential for the published add-on
 HA_mynetwork_repo_complet_2026.md
-COMMIT_MESSAGES.md
+COMMIT-MESSAGE.txt
 
 # Local version bump script (machine-specific, e.g. chown debian32)
 update-version.sh

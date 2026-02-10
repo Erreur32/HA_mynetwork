@@ -33,7 +33,7 @@
 
 **A multi-source network dashboard for Freebox, UniFi support and Network Scanner devices  your entires networks as a Home Assistant add-on (Ingress).**
 
-[Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](mynetwork/DOCS.md)
+[Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](mynetwork/DOCS.md) | [Documentation FR](mynetwork/DOCS_FR.md)
 
 </div>
 
@@ -43,7 +43,7 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.1.18` | **Based on MynetworK:** `v0.7.5`
+**Current version:** `0.1.19` | **Based on MynetworK:** `v0.7.5`
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan).
 
@@ -90,7 +90,7 @@ HA_mynetwork/
         └── fr.yaml
 ```
 
-For detailed add-on documentation, see [mynetwork/DOCS.md](mynetwork/DOCS.md) and [mynetwork/README.md](mynetwork/README.md).
+For detailed add-on documentation, see [mynetwork/DOCS.md](mynetwork/DOCS.md) | [DOCS_FR.md](mynetwork/DOCS_FR.md) and [mynetwork/README.md](mynetwork/README.md).
 
 ---
 
@@ -101,7 +101,7 @@ For detailed add-on documentation, see [mynetwork/DOCS.md](mynetwork/DOCS.md) an
 ✔️ Persistence in `/data` (database, config, tokens)  
 ✔️ Watchdog and custom AppArmor profile  
 ✔️ Compatible with Home Assistant 2025.x / 2026.x (Supervisor, Settings → Apps)  
-✔️ Options: `jwt_secret`, admin account, `freebox_host`, log level  
+✔️ Options: `jwt_secret`, `freebox_host`, log level  
 
 ---
 
@@ -135,15 +135,30 @@ Configure the add-on in the **Configuration** tab. Main options:
 
 > **Note:** Admin credentials (username, password, email) are managed by the MynetworK app itself, not in the HA add-on config. See "First run" below.
 
-See [mynetwork/DOCS.md](mynetwork/DOCS.md) for full documentation.
+See [mynetwork/DOCS.md](mynetwork/DOCS.md) for full documentation — [Version française](mynetwork/DOCS_FR.md).
 
 ---
 
 ## Usage
 
 - **UI**: Open the **MynetworK** panel from the Home Assistant sidebar. No URL or port to remember.
-- **First run**: On first launch (empty database), the app creates a default admin account (`admin` / `admin123`). Log in and **change the password immediately**. Credentials are stored in the app database and managed via the MynetworK UI. Set a strong `jwt_secret` before production use.
 - **Data**: Stored in the app data volume (`/data`): database, config, Freebox token. Data persists across restarts and updates.
+
+### First run
+
+On first launch (empty database), the app automatically creates a default admin account:
+
+| | |
+|---|---|
+| **Username** | `admin` |
+| **Password** | `admin123` |
+
+1. Log in with these default credentials.
+2. **Change the password immediately** via the MynetworK UI (user settings).
+3. Configure your plugins (Freebox, UniFi, Network Scan) in **Plugins**.
+4. Set a strong `jwt_secret` in the add-on Configuration tab.
+
+> Credentials are stored in the app database and managed entirely via the MynetworK UI. They are **never** overwritten by the add-on configuration on restart.
 
 ---
  
@@ -172,8 +187,8 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.1.18-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.18
+[release-shield]: https://img.shields.io/badge/version-v0.1.19-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.19
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
 [mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.5-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK

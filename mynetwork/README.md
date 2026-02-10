@@ -4,7 +4,7 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.1.18-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![Add-on version](https://img.shields.io/badge/version-0.1.19-blue)](https://github.com/Erreur32/HA_mynetwork)
 [![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.7.5-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
@@ -20,7 +20,7 @@
 
 **A multi-source network dashboard for Freebox, UniFi + Network Scanner and your networks  as a Home Assistant add-on (Ingress only).**
 
-[Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](mynetwork/DOCS.md)
+[Quick Start](#quick-start) | [Features](#features) | [Installation](#installation) | [Configuration](#configuration) | [Documentation](DOCS.md) | [Documentation FR](DOCS_FR.md)
 
 </div>
 
@@ -44,7 +44,7 @@
 ✔️ Persistence in `/data` (database, config, tokens)  
 ✔️ Watchdog and custom AppArmor profile  
 ✔️ Compatible with Home Assistant 2025.x / 2026.x (Supervisor, Settings → Apps)  
-✔️ Options: `jwt_secret`, admin account, `freebox_host`, log level  
+✔️ Options: `jwt_secret`, `freebox_host`, log level  
 
 ---
 
@@ -70,7 +70,7 @@
 | **log_level** | `debug` \| `info` \| `warning` \| `error`. Use **debug** for extra startup diagnostics and Node stack traces in the add-on Log. |
 | **freebox_host** | Optional. Freebox host (e.g. `mafreebox.freebox.fr`). |
 
-> **Note:** Admin credentials (username, password, email) are **not** configured here. The MynetworK app manages user accounts via its own setup wizard (first launch) and user management UI.
+> **Note:** Admin credentials (username, password, email) are **not** configured here. The MynetworK app manages user accounts via its own UI — see "First run" below.
 
 **Security (Settings → Apps → MynetworK → Information or Configuration → Security):** The app declares `hassio_role: admin` so the **"Protected mode"** toggle can appear. Disable **"Protected mode"** so the app can start and use network scanning (`NET_RAW`/`NET_ADMIN`); with it on, the Supervisor may block the app.
 
@@ -79,8 +79,23 @@
 ## Usage
 
 - **UI**: Open **MynetworK** from the Home Assistant **sidebar** (Ingress panel). No URL or port to configure.
-- **First run**: On first launch (empty database), the app creates a default admin account (`admin` / `admin123`). Log in and **change the password immediately**. Credentials are stored in the app database and managed via the MynetworK UI. Ensure **jwt_secret** is set before production use.
 - **Data**: Stored in `/data` (database, config, Freebox token). Data persists across restarts and updates.
+
+### First run
+
+On first launch (empty database), the app automatically creates a default admin account:
+
+| | |
+|---|---|
+| **Username** | `admin` |
+| **Password** | `admin123` |
+
+1. Log in with these default credentials.
+2. **Change the password immediately** via the MynetworK UI (user settings).
+3. Configure your plugins (Freebox, UniFi, Network Scan) in **Plugins**.
+4. Ensure **jwt_secret** is set in the add-on Configuration tab.
+
+> Credentials are stored in the app database and managed entirely via the MynetworK UI. They are **never** overwritten by the add-on configuration on restart.
 
 ---
 
@@ -97,8 +112,8 @@
 
 ## Documentation
 
-- **Full add-on documentation**: [DOCS.md](DOCS.md)  installation, persistence, security, troubleshooting, AppArmor.
-- **Upstream app**: [MynetworK](https://github.com/Erreur32/MynetworK)   features, Docker, development.
+- **Full add-on documentation**: [DOCS.md](DOCS.md) | [Version française (DOCS_FR.md)](DOCS_FR.md) — installation, persistence, security, troubleshooting, AppArmor.
+- **Upstream app**: [MynetworK](https://github.com/Erreur32/MynetworK) — features, Docker, development.
 
 ---
 
