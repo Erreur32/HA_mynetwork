@@ -4,8 +4,8 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.1.17-blue)](https://github.com/Erreur32/HA_mynetwork)
-[![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.7.3-orange)](https://github.com/Erreur32/MynetworK)
+[![Add-on version](https://img.shields.io/badge/version-0.1.18-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.7.5-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
 
@@ -67,11 +67,10 @@
 | Option | Description |
 |--------|-------------|
 | **jwt_secret** | **Required in production** — secures sessions. Set a strong random value. |
-| **default_admin_username** | Username of the initial admin account (created on first run if DB is empty). |
-| **default_admin_password** | Password for the initial admin account. Set a strong password. |
-| **default_admin_email** | Email for the initial admin account. |
 | **log_level** | `debug` \| `info` \| `warning` \| `error`. Use **debug** for extra startup diagnostics and Node stack traces in the add-on Log. |
 | **freebox_host** | Optional. Freebox host (e.g. `mafreebox.freebox.fr`). |
+
+> **Note:** Admin credentials (username, password, email) are **not** configured here. The MynetworK app manages user accounts via its own setup wizard (first launch) and user management UI.
 
 **Security (Settings → Apps → MynetworK → Information or Configuration → Security):** The app declares `hassio_role: admin` so the **"Protected mode"** toggle can appear. Disable **"Protected mode"** so the app can start and use network scanning (`NET_RAW`/`NET_ADMIN`); with it on, the Supervisor may block the app.
 
@@ -80,7 +79,7 @@
 ## Usage
 
 - **UI**: Open **MynetworK** from the Home Assistant **sidebar** (Ingress panel). No URL or port to configure.
-- **First run**: If the database is empty, an admin account is created from the options above. Log in and change the password if needed; ensure **jwt_secret** is set before production use.
+- **First run**: On first launch (empty database), the app creates a default admin account (`admin` / `admin123`). Log in and **change the password immediately**. Credentials are stored in the app database and managed via the MynetworK UI. Ensure **jwt_secret** is set before production use.
 - **Data**: Stored in `/data` (database, config, Freebox token). Data persists across restarts and updates.
 
 ---

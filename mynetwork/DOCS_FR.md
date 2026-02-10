@@ -4,7 +4,7 @@
 
 **Dashboard Réseau Multi-Sources** pour Home Assistant.
 
-**Version :** `0.1.17`
+**Version :** `0.1.18`
 
 
 Dashboard unifié pour gérer et surveiller vos équipements réseau :
@@ -41,15 +41,20 @@ Dashboard unifié pour gérer et surveiller vos équipements réseau :
 |---|---|---|
 | **log_level** | Niveau de log (debug, info, warning, error) | `info` |
 | **jwt_secret** | Secret JWT pour sécuriser les sessions (obligatoire en prod) | vide |
-| **default_admin_username** | Nom d'utilisateur admin initial | `admin` |
-| **default_admin_password** | Mot de passe admin initial | vide |
-| **default_admin_email** | Email admin initial | `admin@localhost` |
 | **freebox_host** | Hôte Freebox (optionnel) | vide |
+
+> **Note :** Les identifiants admin (username, mot de passe, email) ne sont **pas** configurés ici.
+> L'app MynetworK gère les comptes utilisateurs via sa propre interface — voir « Premier lancement » ci-dessous.
 
 ### Premier lancement
 
-1. L'app crée automatiquement un compte **admin** avec les identifiants des options.
-2. **Changer le mot de passe** immédiatement après la première connexion.
-3. Configurer les plugins (Freebox, UniFi, Scan réseau) dans l'interface MynetworK → **Plugins**.
+1. Ouvrir le panneau **MynetworK** dans la sidebar (ou utiliser le port direct).
+2. Au premier lancement (base de données vide), l'app crée automatiquement un compte admin par défaut :
+   - **Username :** `admin`
+   - **Mot de passe :** `admin123`
+3. Connectez-vous avec ces identifiants par défaut.
+4. **Changez le mot de passe immédiatement** via l'interface MynetworK (paramètres utilisateur).
+5. Configurez les plugins (Freebox, UniFi, Scan réseau) dans l'interface MynetworK → **Plugins**.
+6. Les identifiants sont stockés dans la base de données de l'app et sont gérés uniquement via l'interface MynetworK (pas dans la configuration de l'add-on HA).
 
  

@@ -43,7 +43,7 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.1.17` | **Based on MynetworK:** `v0.7.3`
+**Current version:** `0.1.18` | **Based on MynetworK:** `v0.7.5`
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan).
 
@@ -131,10 +131,9 @@ Configure the add-on in the **Configuration** tab. Main options:
 |--------|-------------|
 | `log_level` | debug / info / warning / error |
 | `jwt_secret` | **Required in production** — secures sessions |
-| `default_admin_username` | Initial admin username |
-| `default_admin_password` | Initial admin password |
-| `default_admin_email` | Initial admin email |
 | `freebox_host` | Optional (e.g. `mafreebox.freebox.fr`) |
+
+> **Note:** Admin credentials (username, password, email) are managed by the MynetworK app itself, not in the HA add-on config. See "First run" below.
 
 See [mynetwork/DOCS.md](mynetwork/DOCS.md) for full documentation.
 
@@ -143,7 +142,7 @@ See [mynetwork/DOCS.md](mynetwork/DOCS.md) for full documentation.
 ## Usage
 
 - **UI**: Open the **MynetworK** panel from the Home Assistant sidebar. No URL or port to remember.
-- **First run**: If the database is empty, an admin account is created from the options above. Set a strong password and `jwt_secret` before production use.
+- **First run**: On first launch (empty database), the app creates a default admin account (`admin` / `admin123`). Log in and **change the password immediately**. Credentials are stored in the app database and managed via the MynetworK UI. Set a strong `jwt_secret` before production use.
 - **Data**: Stored in the app data volume (`/data`): database, config, Freebox token. Data persists across restarts and updates.
 
 ---
@@ -173,10 +172,10 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.1.17-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.17
+[release-shield]: https://img.shields.io/badge/version-v0.1.18-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.18
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
-[mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.3-orange.svg
+[mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.5-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
 [ha-shield]: https://img.shields.io/badge/Home%20Assistant-App%20(Supervisor)-41BDF5.svg
 [ha]: https://www.home-assistant.io/

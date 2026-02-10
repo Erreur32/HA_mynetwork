@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.1.17"
+version: "0.1.18"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 arch:
   - amd64
@@ -48,19 +48,16 @@ map:
     path: /data
     read_only: false
 
-# Options: general (auth, logs, Freebox). Port is fixed at 3000 (ingress_port), managed by Supervisor.
+# Options: infrastructure only (logs, JWT, Freebox). Port is fixed at 3000 (ingress_port), managed by Supervisor.
+# Admin credentials are NOT configured here — the MynetworK app manages user accounts
+# via its own setup wizard on first launch (when the database is empty) and its user
+# management UI afterwards. This avoids HA config overwriting credentials changed in-app.
 # Reset to defaults: remove add-on and reinstall, or clear options via Supervisor API (see DOCS).
 options:
   log_level: "info"
   jwt_secret: ""
-  default_admin_username: "admin"
-  default_admin_password: ""
-  default_admin_email: "admin@localhost"
   freebox_host: ""
 schema:
   log_level: list(debug|info|warning|error)
   jwt_secret: password
-  default_admin_username: str
-  default_admin_password: password
-  default_admin_email: str
   freebox_host: str?

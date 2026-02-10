@@ -4,7 +4,7 @@
 
 **Multi-Source Network Dashboard** for Home Assistant.
 
-**Version:** `0.1.17`
+**Version:** `0.1.18`
 
 **[Documentation en français](https://github.com/Erreur32/HA_mynetwork/blob/main/mynetwork/DOCS_FR.md)**
 
@@ -42,16 +42,21 @@ A unified dashboard to manage and monitor your network devices:
 |---|---|---|
 | **log_level** | Log level (debug, info, warning, error) | `info` |
 | **jwt_secret** | JWT secret to secure sessions (required in production) | empty |
-| **default_admin_username** | Initial admin username | `admin` |
-| **default_admin_password** | Initial admin password | empty |
-| **default_admin_email** | Initial admin email | `admin@localhost` |
 | **freebox_host** | Freebox host (optional) | empty |
+
+> **Note:** Admin credentials (username, password, email) are **not** configured here.
+> The MynetworK app manages user accounts via its own UI — see "First launch" below.
 
 ### First launch
 
-1. The app automatically creates an **admin** account using the credentials from the options.
-2. **Change the password** immediately after first login.
-3. Configure plugins (Freebox, UniFi, Network Scan) in the MynetworK UI → **Plugins**.
+1. Open the **MynetworK** panel in the sidebar (or use the direct port).
+2. On first launch (empty database), the app automatically creates a default admin account:
+   - **Username:** `admin`
+   - **Password:** `admin123`
+3. Log in with these default credentials.
+4. **Change the password immediately** via the MynetworK UI (user settings).
+5. Configure plugins (Freebox, UniFi, Network Scan) in the MynetworK UI → **Plugins**.
+6. Credentials are stored in the app database and are managed entirely within the MynetworK UI (not in the HA add-on configuration).
 
  
  

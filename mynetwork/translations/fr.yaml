@@ -5,12 +5,6 @@ configuration:
   jwt_secret:
     name: Secret JWT
     description: Recommandé pour sécuriser les sessions
-  default_admin_username:
-    name: Admin (username)
-  default_admin_password:
-    name: Admin (mot de passe)
-  default_admin_email:
-    name: Admin (email)
   freebox_host:
     name: Freebox host
     description: "Optionnel (ex: mafreebox.freebox.fr)"

@@ -1,5 +1,6 @@
-# Internal / non-essential for the published app
+# Internal / non-essential for the published add-on
 HA_mynetwork_repo_complet_2026.md
+COMMIT_MESSAGES.md
 
 # Local version bump script (machine-specific, e.g. chown debian32)
 update-version.sh
@@ -10,10 +11,12 @@ update-version.sh
 # OS
 .DS_Store
 Thumbs.db
+Desktop.ini
 
 # Editor / IDE
 .idea/
 .vscode/
+.cursor/
 *.swp
 *.swo
 *~
@@ -21,3 +24,9 @@ Thumbs.db
 # Local / env (if any)
 .env
 .env.local
+
+# Node (should not exist in this repo, but just in case)
+node_modules/
+
+# Logs
+*.log

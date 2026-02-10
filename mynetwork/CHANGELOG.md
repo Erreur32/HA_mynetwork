@@ -4,6 +4,14 @@ All notable changes to the MynetworK add-on are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.18]
+
+### Changed
+
+- **Architecture: admin credentials removed from HA config** — `default_admin_username`, `default_admin_password`, and `default_admin_email` have been removed from `config.yaml` options, `run.sh` environment exports, and translation files. Admin account creation is now handled entirely by the MynetworK app itself (setup wizard on first launch when the database is empty). This prevents HA add-on options from overwriting credentials changed in-app after a restart. Only infrastructure options remain in the HA config: `log_level`, `jwt_secret`, `freebox_host`.
+
+---
+
 ## [0.1.15]
 
 ### Added
