@@ -43,7 +43,7 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.1.19` | **Based on MynetworK:** `v0.7.5`
+**Current version:** `0.1.20` | **Based on MynetworK:** `v0.7.7`
 
 [MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan).
 
@@ -187,10 +187,10 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.1.19-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.19
+[release-shield]: https://img.shields.io/badge/version-v0.1.20-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.20
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
-[mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.5-orange.svg
+[mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.7-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
 [ha-shield]: https://img.shields.io/badge/Home%20Assistant-App%20(Supervisor)-41BDF5.svg
 [ha]: https://www.home-assistant.io/
