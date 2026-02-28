@@ -1,8 +1,28 @@
 # Changelog
 
-All notable changes to the MynetworK add-on are documented here.
+All notable changes to the **HA_mynetwork** add-on (MynetworK for Home Assistant) are documented here.
 
 This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+**Versions:** There are two different version numbers — **HA_mynetwork** (this add-on, e.g. `0.1.20`) and **MynetworK** (the [main project](https://github.com/Erreur32/MynetworK), e.g. `v0.7.7`). When you bump the add-on with `scripts/update-version.sh`, the script updates both version numbers in the READMEs (it fetches the latest MynetworK version from upstream). Keep the embedded **MynetworK** version in sync so users know which app release they are running.
+
+---
+
+## [0.1.21]
+
+### Changed
+
+- **Version bump** — Add-on 0.1.20 → 0.1.21. Displayed upstream aligned with [MynetworK v0.7.12](https://github.com/Erreur32/MynetworK). Image remains `ghcr.io/erreur32/mynetwork:latest` (each build uses the current upstream release).
+
+---
+
+## [0.1.20]
+
+### Changed
+
+- **Documentation: Versions** — Clear distinction between **HA_mynetwork** (add-on) and **MynetworK** (main project) in both READMEs with a "Versions" table. CHANGELOG header updated with version policy; `update-version.sh` updates both version numbers (add-on + upstream) in the new tables.
+
+---
 
 ## [0.1.19]
 

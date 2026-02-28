@@ -43,11 +43,16 @@
 
 This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
-**Current version:** `0.1.20` | **Based on MynetworK:** `v0.7.7`
+[MynetworK](https://github.com/Erreur32/MynetworK) is the **main project** — multi-source network dashboard (Freebox, UniFi, network scan). **HA_mynetwork** is the Home Assistant add-on that embeds it.
 
-[MynetworK](https://github.com/Erreur32/MynetworK) is a multi-source network dashboard (Freebox, UniFi, network scan).
+### Versions (two different version numbers)
 
-This add-on runs MynetworK inside Home Assistant with **Ingress** and  exposed port, no sensors; the UI is available from the sidebar panel.
+| | Version | Description |
+|---|--------|-------------|
+| **HA_mynetwork** (add-on) | `0.1.21` | Version of this repo (Home Assistant add-on). Bump with `scripts/update-version.sh`. |
+| **MynetworK** (main project) | `v0.7.12` | Version of the embedded app. **Source of truth:** [MynetworK](https://github.com/Erreur32/MynetworK). Must stay up to date when you bump the add-on — `update-version.sh` fetches the latest from upstream and updates READMEs. |
+
+This add-on runs MynetworK inside Home Assistant with **Ingress** and exposed port, no sensors; the UI is available from the sidebar panel.
 
  
 
@@ -187,10 +192,10 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.1.20-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.20
+[release-shield]: https://img.shields.io/badge/version-v0.1.21-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.21
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
-[mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.7-orange.svg
+[mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.12-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK
 [ha-shield]: https://img.shields.io/badge/Home%20Assistant-App%20(Supervisor)-41BDF5.svg
 [ha]: https://www.home-assistant.io/

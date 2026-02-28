@@ -4,8 +4,8 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.1.20-blue)](https://github.com/Erreur32/HA_mynetwork)
-[![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.7.7-orange)](https://github.com/Erreur32/MynetworK)
+[![Add-on version](https://img.shields.io/badge/version-0.1.21-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.7.12-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
 
@@ -28,7 +28,14 @@
 
 ## About
 
-**MynetworK** is a multi-source network dashboard (Freebox, UniFi, network scan). This add-on runs it inside Home Assistant with **Ingress only**: no exposed port, no sensors. Open the **MynetworK** panel from the sidebar to access the full UI.
+**MynetworK** is the **main project** ([github.com/Erreur32/MynetworK](https://github.com/Erreur32/MynetworK)) — multi-source network dashboard (Freebox, UniFi, network scan). This add-on (**HA_mynetwork**) runs it inside Home Assistant with **Ingress only**: no exposed port, no sensors. Open the **MynetworK** panel from the sidebar to access the full UI.
+
+### Versions (two different version numbers)
+
+| | Version | Description |
+|---|--------|-------------|
+| **HA_mynetwork** (add-on) | `0.1.21` | This add-on version (bump with `scripts/update-version.sh`). |
+| **MynetworK** (main project) | `v0.7.12` | Embedded app version. Keep in sync when bumping — see root [README](../README.md#versions-two-different-version-numbers). |
 
 - **Freebox** — Manage your Freebox (Ultra, Delta, Pop)
 - **UniFi** — Monitor and manage your UniFi infrastructure
