@@ -16,8 +16,6 @@ COMMIT-MESSAGE.txt
 
 # ── Scripts locaux à la racine (machine-specific, ex: chown debian32) ─────────
 /update-version.sh
-/bump-version.sh
-/release.sh
 
 # ── Backups créés par sed -i.bak ──────────────────────────────────────────────
 *.bak
