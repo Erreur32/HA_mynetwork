@@ -1,3 +1,6 @@
 name: MynetworK
 url: https://github.com/Erreur32/HA_mynetwork
 maintainer: Erreur32
+description: "Multi-source network dashboard for Home Assistant — Freebox, UniFi, network scan"
+icon: https://raw.githubusercontent.com/Erreur32/HA_mynetwork/main/mynetwork/icon.png
+

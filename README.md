@@ -49,7 +49,7 @@ This repository contains the **MynetworK** app (add-on) for Home Assistant.
 
 | | Version | Description |
 |---|--------|-------------|
-| **HA_mynetwork** (add-on) | `0.1.23` | Version of this repo (Home Assistant add-on). Bump with `scripts/update-version.sh`. |
+| **HA_mynetwork** (add-on) | `0.1.24` | Version of this repo (Home Assistant add-on). Bump with `scripts/update-version.sh`. |
 | **MynetworK** (main project) | `v0.7.27` | Version of the embedded app. **Source of truth:** [MynetworK](https://github.com/Erreur32/MynetworK). Must stay up to date when you bump the add-on — `update-version.sh` fetches the latest from upstream and updates READMEs. |
 
 This add-on runs MynetworK inside Home Assistant with **Ingress** and exposed port, no sensors; the UI is available from the sidebar panel.
@@ -192,8 +192,8 @@ MIT License — see the [LICENSE][license] file for details.
 [license]: https://github.com/Erreur32/HA_mynetwork/blob/main/LICENSE
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
-[release-shield]: https://img.shields.io/badge/version-v0.1.23-blue.svg
-[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.23
+[release-shield]: https://img.shields.io/badge/version-v0.1.24-blue.svg
+[release]: https://github.com/Erreur32/HA_mynetwork/releases/tag/v0.1.24
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg
 [mynetwork-shield]: https://img.shields.io/badge/MynetworK%20v0.7.27-orange.svg
 [mynetwork-upstream]: https://github.com/Erreur32/MynetworK

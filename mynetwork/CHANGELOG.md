@@ -8,6 +8,22 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.24]
+
+### Added
+
+- **`scripts/update-version.sh` — `--tag-push` option** — After bumping the version, the script can now automatically commit (using `COMMIT-MESSAGE.txt`), create an annotated git tag, and push the branch and tag in one command: `./scripts/update-version.sh <version> --tag-push`.
+- **`scripts/update-version.sh` — Dockerfile auto-update** — The script now updates the `BUILD_FROM` image tag in `mynetwork/Dockerfile` to match the fetched upstream MynetworK version (e.g. `ghcr.io/erreur32/mynetwork:0.7.27`). Previously required a manual edit.
+
+### Changed
+
+- **`mynetwork/Dockerfile` — pinned base image** — `BUILD_FROM` no longer uses `:latest`; it is now pinned to the upstream release tag (currently `ghcr.io/erreur32/mynetwork:0.7.27`) for reproducible builds.
+- **`repository.yaml` — enriched** — Added `description` and `icon` fields so the repository entry displays correctly when added via the HA add-on store UI.
+- **`scripts/update-version.sh` — improved commit message handling** — Detects whether `COMMIT-MESSAGE.txt` already contains the new version before overwriting; shows a warning instead of silently regenerating.
+- **`scripts/update-version.sh` — improved manual commands section** — End-of-run output now shows three options (custom message, generic message, all-in-one) plus a reminder to use `--tag-push`.
+
+---
+
 ## [0.1.21]
 
 ### Changed
