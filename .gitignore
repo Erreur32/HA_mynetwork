@@ -1,32 +1,65 @@
-# Internal / non-essential for the published add-on
+# ── Internal / non-publishable docs ──────────────────────────────────────────
 HA_mynetwork_repo_complet_2026.md
+
+# ── Dev / aide / notes locales ────────────────────────────────────────────────
+Aide.txt
+TODO.txt
+NOTES.txt
+notes.md
+todo.md
+*.todo
+*.notes
+debug.md
+
+# ── Commit workflow (generated, not versioned) ────────────────────────────────
 COMMIT-MESSAGE.txt
 
-# Local version bump script at root (machine-specific, e.g. chown debian32)
+# ── Scripts locaux à la racine (machine-specific, ex: chown debian32) ─────────
 /update-version.sh
+/bump-version.sh
+/release.sh
 
-# bump-version.sh backups
+# ── Backups créés par sed -i.bak ──────────────────────────────────────────────
 *.bak
 
-# OS
+# ── Fichiers sensibles ────────────────────────────────────────────────────────
+.env
+.env.*
+*.key
+*.pem
+*.cert
+*.p12
+secrets.yaml
+secrets.json
+credentials.json
+token.json
+freebox_token.json
+
+# ── Claude Code (settings locaux, non partagés) ───────────────────────────────
+.claude/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 Desktop.ini
+._*
 
-# Editor / IDE
+# ── Éditeurs / IDE ────────────────────────────────────────────────────────────
 .idea/
 .vscode/
 .cursor/
 *.swp
 *.swo
 *~
+*.orig
 
-# Local / env (if any)
-.env
-.env.local
-
-# Node (should not exist in this repo, but just in case)
+# ── Node (ne devrait pas exister ici) ─────────────────────────────────────────
 node_modules/
+npm-debug.log*
 
-# Logs
+# ── Logs ──────────────────────────────────────────────────────────────────────
 *.log
+logs/
+
+# ── Docker local overrides ────────────────────────────────────────────────────
+docker-compose.override.yml
