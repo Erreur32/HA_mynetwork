@@ -4,8 +4,8 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.1.24-blue)](https://github.com/Erreur32/HA_mynetwork)
-[![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.7.27-orange)](https://github.com/Erreur32/MynetworK)
+[![Add-on version](https://img.shields.io/badge/version-0.1.25-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.7.45-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
 
@@ -34,8 +34,8 @@
 
 | | Version | Description |
 |---|--------|-------------|
-| **HA_mynetwork** (add-on) | `0.1.24` | This add-on version (bump with `scripts/update-version.sh`). |
-| **MynetworK** (main project) | `v0.7.27` | Embedded app version. Keep in sync when bumping — see root [README](../README.md#versions-two-different-version-numbers). |
+| **HA_mynetwork** (add-on) | `0.1.25` | This add-on version (bump with `scripts/update-version.sh`). |
+| **MynetworK** (main project) | `v0.7.45` | Embedded app version. Keep in sync when bumping — see root [README](../README.md#versions-two-different-version-numbers). |
 
 - **Freebox** — Manage your Freebox (Ultra, Delta, Pop)
 - **UniFi** — Monitor and manage your UniFi infrastructure
