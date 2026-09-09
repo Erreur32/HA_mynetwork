@@ -50,6 +50,11 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_ROOT"
 
+# Avoid git's "dubious ownership" refusal when the repo is owned by a
+# different user than the one running this script (e.g. root in a
+# container), without touching the user's global gitconfig.
+git() { command git -c safe.directory="$REPO_ROOT" "$@"; }
+
 # ── Target files ─────────────────────────────────────────────────────────────
 CONFIG="$REPO_ROOT/mynetwork/config.yaml"
 ROOT_README="$REPO_ROOT/README.md"
