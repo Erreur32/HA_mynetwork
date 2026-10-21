@@ -8,6 +8,16 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.29]
+
+### Changed
+
+- **Home Assistant 2026.10 / Supervisor compatibility** — Supported architectures reduced to `amd64` and `aarch64`. `armv7` is deprecated by the Supervisor (warning `uses deprecated 'arch' values: ['armv7']`) and was never published by the upstream image anyway.
+- **`mynetwork/build.yaml` removed** — `build.yaml` is deprecated, and since Supervisor 2026.04 `BUILD_FROM` is no longer passed to the build. The base image now comes only from the `ARG BUILD_FROM` default in `mynetwork/Dockerfile`.
+- **Base image bumped to `ghcr.io/erreur32/mynetwork:0.13.3`** — The previously pinned `0.10.14` was amd64-only, which broke builds on `aarch64` once `build.yaml` stopped being applied. `0.13.3` is published for `linux/amd64` and `linux/arm64`.
+
+---
+
 ## [0.1.24]
 
 ### Added
