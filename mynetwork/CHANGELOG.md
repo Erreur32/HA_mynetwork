@@ -18,6 +18,40 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.28]
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.10.14.
+
+---
+
+## [0.1.27]
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.10.10.
+- **`scripts/update-version.sh`** — runs git with `safe.directory` so it works when the repo is owned by another user (e.g. as root).
+
+---
+
+## [0.1.26]
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.8.5.
+
+---
+
+## [0.1.25]
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.7.45.
+- **`.gitignore` cleanup** — local notes, `.claude/` and sensitive files are ignored.
+
+---
+
 ## [0.1.24]
 
 ### Added
@@ -31,6 +65,14 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 - **`repository.yaml` — enriched** — Added `description` and `icon` fields so the repository entry displays correctly when added via the HA add-on store UI.
 - **`scripts/update-version.sh` — improved commit message handling** — Detects whether `COMMIT-MESSAGE.txt` already contains the new version before overwriting; shows a warning instead of silently regenerating.
 - **`scripts/update-version.sh` — improved manual commands section** — End-of-run output now shows three options (custom message, generic message, all-in-one) plus a reminder to use `--tag-push`.
+
+---
+
+## [0.1.23]
+
+### Changed
+
+- **Version bump** — add-on 0.1.22 → 0.1.23, upstream MynetworK aligned with v0.7.27 in the READMEs and docs.
 
 ---
 
