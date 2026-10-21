@@ -1,6 +1,6 @@
 name: "MynetworK"
 slug: "mynetwork"
-version: "0.1.29"
+version: "0.1.30"
 description: "Multi-source network dashboard (Freebox, UniFi, network scan) for Home Assistant"
 # 64-bit only: armv7/armhf/i386 are deprecated by the Supervisor, and the upstream
 # image ghcr.io/erreur32/mynetwork is only published for linux/amd64 and linux/arm64.

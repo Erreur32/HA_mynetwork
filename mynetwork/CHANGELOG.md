@@ -8,6 +8,14 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.30]
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.13.5 (`ghcr.io/erreur32/mynetwork:0.13.5`, amd64 + arm64). Includes the upstream 0.13.4 and 0.13.5 releases: dependency updates (`@modelcontextprotocol/sdk` 1.32.1, `vite` 6.4.5) and the stat/sta reuse change. See the [MynetworK release notes](https://github.com/Erreur32/MynetworK/releases/tag/v0.13.5).
+
+---
+
 ## [0.1.29]
 
 ### Changed
