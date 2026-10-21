@@ -4,7 +4,7 @@
 
 # MynetworK
 
-[![Add-on version](https://img.shields.io/badge/version-0.1.30-blue)](https://github.com/Erreur32/HA_mynetwork)
+[![Add-on version](https://img.shields.io/badge/version-0.1.31-blue)](https://github.com/Erreur32/HA_mynetwork)
 [![MynetworK upstream](https://img.shields.io/badge/MynetworK-v0.13.5-orange)](https://github.com/Erreur32/MynetworK)
 [![Ingress only](https://img.shields.io/badge/Ingress-only-41BDF5)](https://www.home-assistant.io/)
 [![Docker](https://img.shields.io/badge/GHCR-mynetwork-0ea5e9?logo=docker&logoColor=white)](https://github.com/Erreur32/MynetworK/pkgs/container/mynetwork)
@@ -34,7 +34,7 @@
 
 | | Version | Description |
 |---|--------|-------------|
-| **HA_mynetwork** (add-on) | `0.1.30` | This add-on version (bump with `scripts/update-version.sh`). |
+| **HA_mynetwork** (add-on) | `0.1.31` | This add-on version (bump with `scripts/update-version.sh`). |
 | **MynetworK** (main project) | `v0.13.5` | Embedded app version. Keep in sync when bumping — see root [README](../README.md#versions-two-different-version-numbers). |
 
 - **Freebox** — Manage your Freebox (Ultra, Delta, Pop)

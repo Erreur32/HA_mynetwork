@@ -21,10 +21,11 @@ RUN chmod -R u+w /app/dist 2>/dev/null || true
 # The upstream code writes to /app/data/ (OUI database, config, etc.) but in HA
 # the image layer is read-only at runtime. The Supervisor mounts /data as writable.
 # Must be done at build time because rm -rf /app/data fails on read-only layers at runtime.
-RUN cp -rn /app/data/* /tmp/_appdata_backup/ 2>/dev/null || mkdir -p /tmp/_appdata_backup \
+# Original /app/data content is kept in /app/data_defaults; run.sh seeds /data from it.
+RUN mkdir -p /app/data_defaults \
+ && { cp -a /app/data/. /app/data_defaults/ 2>/dev/null || true; } \
  && rm -rf /app/data \
- && ln -sf /data /app/data \
- && mv /tmp/_appdata_backup /app/data_defaults
+ && ln -s /data /app/data
 
 ENTRYPOINT []
 CMD ["/run.sh"]

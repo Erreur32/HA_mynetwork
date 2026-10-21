@@ -8,6 +8,15 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.31]
+
+### Fixed
+
+- **`mynetwork/Dockerfile` — default data preserved** — The build step that saves the image's original `/app/data` into `/app/data_defaults` copied into a directory that did not exist yet, so any upstream default files were silently lost. It now creates `/app/data_defaults` first and copies everything, hidden files included. No effect with the current upstream image (`/app/data` is empty), but future upstream defaults will be kept.
+- **`mynetwork/run.sh` — hidden files restored** — Seeding `/data` from `/app/data_defaults` now includes dotfiles. Existing files in `/data` are still never overwritten.
+
+---
+
 ## [0.1.30]
 
 ### Changed

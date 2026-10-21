@@ -83,7 +83,10 @@ fi
 # that writes to /app/data/ actually writes to the persistent Supervisor volume.
 # /app/data_defaults/ holds files that were originally in the image's /app/data/.
 if [ -d "/app/data_defaults" ]; then
-  cp -rn /app/data_defaults/* /data/ 2>/dev/null || true
+  # Glob + dotfiles: busybox `cp -rn dir/. dest/` skips everything when dest exists
+  for f in /app/data_defaults/* /app/data_defaults/.[!.]*; do
+    [ -e "$f" ] && cp -rn "$f" /data/ 2>/dev/null || true
+  done
   log "Default data files copied to /data"
 fi
 
