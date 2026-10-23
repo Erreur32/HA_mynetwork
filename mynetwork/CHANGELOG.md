@@ -8,6 +8,19 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.33]
+
+### Fixed
+
+- **Errors after login under Ingress** — Lazy-loaded pages failed with `Unable to preload CSS for /assets/...`, and `/api/settings/theme` and `/api/system/environment` returned 404. Fixed upstream in MynetworK v0.13.8 (Ingress-aware `index.html` served by the app, relative asset URLs in JS/CSS, theme and environment calls through the Ingress path).
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.13.8 (`ghcr.io/erreur32/mynetwork:0.13.8`, amd64 + arm64).
+- **`mynetwork/run.sh`** — The `/assets/` → `./assets/`, manifest/icon and `registerSW.js` rewrites of `index.html` are removed: the app now handles them itself under Ingress, and `./assets/` broke nested routes. The fetch/XHR/WebSocket shim is kept as a safety net.
+
+---
+
 ## [0.1.32]
 
 ### Fixed

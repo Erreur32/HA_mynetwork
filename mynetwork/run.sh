@@ -95,14 +95,13 @@ fi
 # Home Assistant Ingress reverse-proxies requests through:
 #   /api/hassio_ingress/<session_token>/...
 #
-# The upstream Vite build has TWO problems under Ingress:
+# Asset paths in index.html are handled upstream since MynetworK 0.13.8: under
+# Ingress the server prefixes them with X-Ingress-Path and drops the PWA service
+# worker. Do not rewrite them here ("./assets/" would break nested SPA routes).
 #
-#   1. HTML references assets with absolute paths (/assets/index-xxx.js).
-#      The browser resolves these to http://HA:8123/assets/... (HA host root)
-#      instead of http://HA:8123/api/hassio_ingress/<token>/assets/...
-#      → FIX: replace "/assets/" with "./assets/" (relative to current URL).
+# Remaining safety net:
 #
-#   2. The JavaScript bundle makes API calls (fetch("/api/...")) and opens
+#   The JavaScript bundle makes API calls (fetch("/api/...")) and opens
 #      WebSocket connections (new WebSocket("/ws/...")) using absolute paths.
 #      These also bypass the Ingress proxy and hit HA's own API or 404.
 #      → FIX: inject a small "shim" <script> at the top of <head> that
@@ -117,16 +116,7 @@ if [ -f "$INDEX_HTML" ]; then
   TMP_HTML="/tmp/index.html.patched"
   cp "$INDEX_HTML" "$TMP_HTML"
 
-  # ── Fix 1: asset paths  /assets/ → ./assets/ ──────────────────────
-  sed -i 's|"/assets/|"./assets/|g' "$TMP_HTML" 2>/dev/null || true
-  sed -i "s|'/assets/|'./assets/|g" "$TMP_HTML" 2>/dev/null || true
-  # Manifest and icons too (they would hit the HA host root and 404)
-  sed -i -E 's#href="/(manifest\.webmanifest|svg/|pwa-icon)#href="./\1#g' "$TMP_HTML" 2>/dev/null || true
-  # PWA service worker: registerSW.js registers /sw.js with scope "/", i.e. on the HA
-  # host root, outside the Ingress path. Drop it; the dashboard works without it.
-  sed -i 's|<script id="vite-plugin-pwa:register-sw"[^>]*></script>||' "$TMP_HTML" 2>/dev/null || true
-
-  # ── Fix 2: inject Ingress shim (idempotent — skipped if already present) ──
+  # ── Inject Ingress shim (idempotent — skipped if already present) ──
   if ! grep -q 'data-ingress-shim' "$TMP_HTML" 2>/dev/null; then
 
     # Write the shim HTML to a temp file (heredoc with 'EOF' = no shell expansion)
