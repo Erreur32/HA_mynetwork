@@ -1,6 +1,6 @@
 # Base image is set here (build.yaml is deprecated; since Supervisor 2026.04 BUILD_FROM is
 # no longer passed). Tag pinned to the upstream MynetworK release by scripts/update-version.sh.
-ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.13.8
+ARG BUILD_FROM=ghcr.io/erreur32/mynetwork:0.13.10
 FROM ${BUILD_FROM}
 
 # Fail build if base image is missing app (e.g. wrong tag or incomplete image)

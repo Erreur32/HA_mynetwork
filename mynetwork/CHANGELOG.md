@@ -8,6 +8,18 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.34]
+
+### Fixed
+
+- **429 Too Many Requests during a network scan** — The scan page polling (`/api/network-scan/progress`, `port-scan-progress`, `stats`, `history`) hit the app's scan rate limit (60 requests/minute). Fixed upstream in MynetworK v0.13.10.
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.13.10 (`ghcr.io/erreur32/mynetwork:0.13.10`, amd64 + arm64). Includes v0.13.9 (dependency security updates: dompurify, body-parser, ip-address). See the [MynetworK releases](https://github.com/Erreur32/MynetworK/releases).
+
+---
+
 ## [0.1.33]
 
 ### Fixed
