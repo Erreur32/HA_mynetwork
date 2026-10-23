@@ -4,7 +4,7 @@
 
 **Dashboard Réseau Multi-Sources** pour Home Assistant.
 
-**Version :** `0.1.31`
+**Version :** `0.1.32`
 
 **[English documentation](https://github.com/Erreur32/HA_mynetwork/blob/main/mynetwork/DOCS.md)**
 

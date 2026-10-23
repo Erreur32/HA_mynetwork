@@ -120,12 +120,17 @@ if [ -f "$INDEX_HTML" ]; then
   # ── Fix 1: asset paths  /assets/ → ./assets/ ──────────────────────
   sed -i 's|"/assets/|"./assets/|g' "$TMP_HTML" 2>/dev/null || true
   sed -i "s|'/assets/|'./assets/|g" "$TMP_HTML" 2>/dev/null || true
+  # Manifest and icons too (they would hit the HA host root and 404)
+  sed -i -E 's#href="/(manifest\.webmanifest|svg/|pwa-icon)#href="./\1#g' "$TMP_HTML" 2>/dev/null || true
+  # PWA service worker: registerSW.js registers /sw.js with scope "/", i.e. on the HA
+  # host root, outside the Ingress path. Drop it; the dashboard works without it.
+  sed -i 's|<script id="vite-plugin-pwa:register-sw"[^>]*></script>||' "$TMP_HTML" 2>/dev/null || true
 
   # ── Fix 2: inject Ingress shim (idempotent — skipped if already present) ──
   if ! grep -q 'data-ingress-shim' "$TMP_HTML" 2>/dev/null; then
 
     # Write the shim HTML to a temp file (heredoc with 'EOF' = no shell expansion)
-    cat > /tmp/ingress-shim.html << 'SHIMEOF'
+    cat >/tmp/ingress-shim.html <<'SHIMEOF'
 <script data-ingress-shim>
 /* HA Ingress URL rewriter – intercepts browser APIs so absolute paths
    like /api/... and /ws/... are routed through the Ingress reverse proxy.
@@ -163,7 +168,7 @@ if [ -f "$INDEX_HTML" ]; then
 SHIMEOF
 
     # Use node (always present in the image) to inject shim after <head>
-    cat > /tmp/inject-shim.js << 'JSEOF'
+    cat >/tmp/inject-shim.js <<'JSEOF'
 var fs = require('fs');
 var shim = fs.readFileSync('/tmp/ingress-shim.html', 'utf8').trim();
 var path = process.argv[2];
@@ -180,9 +185,17 @@ JSEOF
   fi
 
   # Copy patched file back (Dockerfile makes dist writable; fallback chmod just in case)
-  cp "$TMP_HTML" "$INDEX_HTML" 2>/dev/null || { chmod u+w "$INDEX_HTML" && cp "$TMP_HTML" "$INDEX_HTML"; }
+  cp "$TMP_HTML" "$INDEX_HTML" 2>/dev/null || {
+    chmod u+w "$INDEX_HTML" 2>/dev/null
+    cp "$TMP_HTML" "$INDEX_HTML" 2>/dev/null
+  } || true
   rm -f "$TMP_HTML"
-  log "Ingress patches applied to index.html"
+  # Check the result: a silent write failure means a blank page under Ingress
+  if grep -q 'data-ingress-shim' "$INDEX_HTML" 2>/dev/null; then
+    log "Ingress patches applied to index.html"
+  else
+    log "ERROR: could not write $INDEX_HTML ($(ls -ln "$INDEX_HTML" 2>/dev/null)) — Ingress will show a blank page"
+  fi
 fi
 
 # Start app: use upstream entrypoint if present, else run tsx directly (with su-exec if available)

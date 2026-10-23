@@ -8,6 +8,20 @@ This file follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and 
 
 ---
 
+## [0.1.32]
+
+### Fixed
+
+- **Blank page under Ingress** — The upstream `/app/dist` files belong to `node` (uid 1000), and the AppArmor profile grants no `dac_override`/`fowner`, so `run.sh` could not rewrite `index.html`: assets kept absolute `/assets/...` paths, were requested from the Home Assistant host root and returned 404. `mynetwork/Dockerfile` now gives `/app/dist` to root at build time.
+- **`mynetwork/run.sh` — honest patch status** — After patching, the script checks that `index.html` really contains the Ingress shim and logs an `ERROR` otherwise, instead of always reporting success.
+- **`mynetwork/run.sh` — PWA files under Ingress** — The manifest and icons now use relative paths, and the `registerSW.js` tag is removed (it would register a service worker with scope `/` on the Home Assistant host).
+
+### Changed
+
+- **Upstream sync** — base image bumped to MynetworK v0.13.7 (`ghcr.io/erreur32/mynetwork:0.13.7`, amd64 + arm64).
+
+---
+
 ## [0.1.31]
 
 ### Fixed
